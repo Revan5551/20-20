@@ -47,7 +47,7 @@ const grid = $('#grid');
 Relic.IDS.forEach(id => {
   const b = document.createElement('button');
   b.className = 'fg'; b.dataset.id = id;
-  b.innerHTML = '<svg viewBox="0 0 24 80"><use href="#finger"/></svg><span>' + id + '</span>';
+  b.innerHTML = '<svg viewBox="0 0 30 90"><use href="#finger"/></svg><span>' + id + '</span>';
   b.onclick = () => select(id);
   grid.appendChild(b);
 });

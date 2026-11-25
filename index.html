@@ -28,12 +28,13 @@
       <g id="sg3"><path d="M-6 -6C2 -6 6 0 0 6M-6 6C-1 2 -1 -2 -6 -6"/><circle cx="3" r="1.5"/></g>
       <radialGradient id="bone" cx=".5" cy=".25" r=".85"><stop offset="0" stop-color="#e6d9d3"/><stop offset=".5" stop-color="#a99692"/><stop offset=".85" stop-color="#4a2c30"/><stop offset="1" stop-color="#1c0b0d"/></radialGradient>
       <linearGradient id="bone2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#85726f"/><stop offset="1" stop-color="#2a1517"/></linearGradient>
-      <pattern id="hatch" width="3" height="3" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><path d="M0 0V3" stroke="#000" stroke-width=".8"/></pattern>
+      <pattern id="hatch" width="3" height="3" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><path d="M0 0V3" stroke="#b0001a" stroke-width=".8"/></pattern>
       <path id="sock" d="M-16 -2C-16 -11 -6 -14 5 -12C13 -11 16 -5 15 3C14 11 6 14 -3 13C-12 12 -16 6 -16 -2Z"/>
       <g id="shL"><path d="M118 -34C116 -8 122 6 128 16C126 30 130 42 138 48L150 38C138 20 134 -8 138 -44Z" fill="url(#hatch)" opacity=".6"/><path d="M130 -6C146 -22 164 -20 178 -8C166 -4 146 -2 130 -6Z" fill="url(#hatch)" opacity=".5"/><path d="M130 0C142 -14 164 -16 177 -6" fill="none" stroke="#2a0509" stroke-width="1.6" opacity=".6"/></g>
       <g id="tL"><path d="M150 24C146 34 147 46 143 58C141 64 140 68 140 72" fill="none" stroke="#8a0012" stroke-width="1.8"/><path d="M150.8 25C147 35 148 46 144 58" fill="none" stroke="#ff5060" stroke-width=".6" opacity=".5"/><circle class="dr" cx="140" cy="74" r="2.2" fill="#a0001a"/></g>
       <g id="bL"><path d="M148 22C143 36 148 52 142 70C140 78 139 86 140 94" fill="none" stroke="#c4001a" stroke-width="4.5"/><path d="M157 24C158 36 161 46 158 60" fill="none" stroke="#a00014" stroke-width="3"/><circle class="dr" cx="140" cy="96" r="3.2" fill="#c4001a"/><circle class="dr" cx="158" cy="62" r="2.4" fill="#a00014" style="animation-delay:1.4s"/></g>
       <path id="pa" d="M53 340A247 247 0 0 1 547 340"/><path id="pl" d="M53 340C40 420 78 490 58 575"/><path id="pl2" d="M118 198C150 310 168 440 148 565"/><path id="pt" d="M545 330C612 350 622 470 580 560"/>
+      <path id="skp" d="M180 -86C142 -86 118 -62 117 -28C116 -8 122 6 128 16C126 30 130 42 138 48L148 54H212L222 48C230 42 234 30 232 16C238 6 244 -8 243 -28C242 -62 218 -86 180 -86Z"/><clipPath id="skc"><use href="#skp"/></clipPath>
       <path id="eyeL" d="M144 -2C144 -12 156 -16 168 -13C174 -12 175 -4 173 4C170 12 158 14 150 10C145 8 144 3 144 -2Z"/>
     </defs>
     <rect x="-16" y="-16" width="632" height="632" fill="none" stroke="#4a0a14" stroke-width="1.6"/>
@@ -45,11 +46,7 @@
     <g fill="none" stroke="#7a0014"><circle cx="300" cy="300" r="290"/><circle cx="300" cy="300" r="296" stroke="#4a0a14"/><circle cx="300" cy="300" r="318" stroke-width="1.4"/><circle cx="300" cy="300" r="272" stroke-width="1.4"/><circle cx="300" cy="300" r="172" stroke-width="1.4"/><circle cx="300" cy="300" r="176" stroke="#3a0610" stroke-dasharray="1 4"/></g>
     <use href="#med" x="300" y="28"/><use href="#med" x="572" y="300"/><use href="#med" x="300" y="572"/><use href="#med" x="28" y="300"/>
     <g id="stripes" opacity=".5"></g><g id="sat"></g>
-    <g id="figure" fill="none" stroke-linecap="round" stroke-linejoin="round">
-      <g stroke="#8a0016"><use href="#pa" stroke-width="92"/><use href="#pl" stroke-width="66"/><use href="#pl" stroke-width="66" transform="translate(600 0) scale(-1 1)"/><use href="#pl2" stroke-width="48"/><use href="#pl2" stroke-width="48" transform="translate(600 0) scale(-1 1)"/><use href="#pt" stroke-width="32"/></g>
-      <g stroke="#000"><use href="#pa" stroke-width="88"/><use href="#pl" stroke-width="62"/><use href="#pl" stroke-width="62" transform="translate(600 0) scale(-1 1)"/><use href="#pl2" stroke-width="44"/><use href="#pl2" stroke-width="44" transform="translate(600 0) scale(-1 1)"/><use href="#pt" stroke-width="28"/></g>
-      <g id="fur"></g>
-    </g>
+    <g id="figure" fill="none" stroke-linecap="round" stroke-linejoin="round"></g>
     <g id="ticks"></g>
     <g id="shrine" transform="translate(300 296) scale(.62) translate(-180 -150)">
       <g fill="#000" stroke="#b0001a" stroke-width="1.8" stroke-linejoin="round">
@@ -60,48 +57,25 @@
       </g>
       <path d="M100 222v8l4 4-8 4 8 4-8 4 4 4M260 222v8l4 4-8 4 8 4-8 4 4 4" fill="none" stroke="#6a0010" stroke-width="1.6"/>
       <use class="relic" href="#finger" x="165" y="238" width="30" height="90"/>
-      <g class="skull" transform="translate(180 62) scale(1.18) translate(-180 -62)" stroke-linecap="round" stroke-linejoin="round">
-        <!-- Anatomical skull, rendered as a restrained crimson line engraving -->
-        <g id="skull-normal" fill="none" stroke="#d1001f" stroke-width="2.15">
-          <!-- cranial vault and cheek bones: lowered, mournful gaze -->
-          <path d="M180 -88C155 -91 133 -80 120 -61C109 -43 106 -22 111 -4C113 8 119 20 127 29L137 45C143 54 153 62 164 67L174 70L186 70L197 67C208 62 217 54 223 45L233 29C241 17 247 2 248 -14C251 -35 244 -57 231 -73C218 -86 200 -90 180 -88Z"/>
-          <path d="M125 -62C140 -78 160 -84 180 -82C201 -84 220 -76 233 -61M116 -31C123 -17 123 -1 119 12M244 -32C237 -17 237 -1 241 12" opacity=".65"/>
-          <!-- heavy, sloping brows -->
-          <path d="M120 -20C132 -34 149 -39 166 -29C172 -25 175 -17 174 -10C159 -18 143 -17 128 -7L120 -20Z"/>
-          <path d="M240 -20C228 -34 211 -39 194 -29C188 -25 185 -17 186 -10C201 -18 217 -17 232 -7L240 -20Z"/>
-          <!-- deep sockets, downward/closed-looking -->
-          <path d="M124 -6C135 -17 151 -20 163 -13C171 -8 174 1 171 10C167 23 154 31 140 29C128 26 120 15 121 5Z" fill="#000"/>
-          <path d="M236 -6C225 -17 209 -20 197 -13C189 -8 186 1 189 10C193 23 206 31 220 29C232 26 240 15 239 5Z" fill="#000"/>
-          <path d="M130 4C139 13 152 17 164 12M230 4C221 13 208 17 196 12" opacity=".8"/>
-          <!-- nasal aperture -->
-          <path d="M178 -9L166 17L169 31L180 37L191 31L194 17L182 -9Z" fill="#000"/>
-          <path d="M169 31L174 27M191 31L186 27"/>
-          <!-- maxilla and cheek contours -->
-          <path d="M126 32L139 39L150 47L164 51L180 53L196 51L210 47L221 39L234 32M132 40L127 51L139 61L154 67L166 70L194 70L206 67L221 61L233 51L228 40"/>
-          <!-- closed, mournful mouth and teeth -->
-          <path d="M148 53C158 59 169 61 180 61C191 61 202 59 212 53L207 68L195 75L165 75L153 68Z"/>
-          <path d="M155 57L160 69L166 71L168 59M172 60L174 73M181 60L182 73M190 59L192 71L198 69L203 57"/>
-          <!-- small anatomical fissures and etched detail -->
-          <path d="M139 -66L145 -53L139 -43L147 -33M221 -66L215 -53L221 -43L213 -33M151 -78L157 -64M209 -78L203 -64M132 22L143 28M228 22L217 28M148 78L159 84L170 80M212 78L201 84L190 80" opacity=".7"/>
-          <path d="M151 36L158 33M202 33L209 36M143 45L149 48M211 48L217 45" opacity=".55"/>
+      <g class="skull" transform="translate(180 62) scale(1.18) translate(-180 -62)" fill="none" stroke="#d1001f" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M148 54L146 70C160 80 200 80 214 70L212 54Z" fill="#000" stroke="none"/>
+        <g id="jaw">
+          <path d="M142 50C140 62 147 72 157 77L167 82H193L203 77C213 72 220 62 218 50" fill="#050001"/>
+          <path d="M157 57l3-2 1 7-4 1zM165 57l4-1 1 9-5 1zM175 57h6l-1 10h-4zM186 57l4 1-1 8h-4zM196 57l3 1-2 6-3 0z" fill="#050001" stroke-width="1.2"/>
+          <path d="M165 82v16M176 83v28M187 83v20M198 80v13" stroke="#8a0014" stroke-width="2.2" opacity=".8"/>
         </g>
-        <!-- forward-facing scream state: visible only during the creature easter egg -->
-        <g id="skull-scream" fill="none" stroke="#d1001f" stroke-width="2.2" hidden>
-          <path d="M180 -88C153 -91 130 -78 117 -56C105 -35 105 -11 113 10C117 24 126 37 137 48L145 63L159 75L173 81L187 81L201 75L215 63L223 48L237 35C246 18 251 -5 247 -28C243 -53 228 -76 207 -85C197 -89 188 -90 180 -88Z"/>
-          <path d="M123 -62C143 -79 160 -84 180 -82C201 -84 219 -77 235 -60M117 -32L126 -16L119 2M243 -32L234 -16L241 2" opacity=".65"/>
-          <path d="M119 -13C133 -29 153 -34 169 -24C177 -18 178 -4 173 9C166 25 151 31 136 26C123 21 116 5 119 -13Z" fill="#000"/>
-          <path d="M241 -13C227 -29 207 -34 191 -24C183 -18 182 -4 187 9C194 25 209 31 224 26C237 21 244 5 241 -13Z" fill="#000"/>
-          <path d="M131 -6C143 -16 157 -18 168 -10M229 -6C217 -16 203 -18 192 -10"/>
-          <path d="M180 -6L165 22L169 37L180 43L191 37L195 22L180 -6Z" fill="#000"/>
-          <path d="M132 37L145 46L159 53L180 57L201 53L215 46L228 37L222 59L208 72L194 80L166 80L152 72L138 59Z"/>
-          <!-- gaping mouth -->
-          <path id="scream-mouth" d="M153 57C158 49 169 45 180 45C191 45 202 49 207 57L203 77C198 89 191 96 180 98C169 96 162 89 157 77Z" fill="#000"/>
-          <path d="M158 58L164 55L168 62L174 58L180 62L186 58L192 62L196 55L202 58M159 77L166 73L172 78L180 74L188 78L194 73L201 77"/>
-          <!-- blood tears, drawn as outline strokes only -->
-          <path class="blood" d="M130 21C126 37 123 49 127 60C130 66 134 62 135 56C137 45 133 31 130 21ZM148 29C144 43 141 54 144 64C148 70 153 66 154 59C155 48 151 37 148 29ZM230 21C234 37 237 49 233 60C230 66 226 62 225 56C223 45 227 31 230 21ZM212 29C216 43 219 54 216 64C212 70 207 66 206 59C205 48 209 37 212 29Z" stroke="#ff233d" stroke-width="2.5"/>
-          <path d="M130 60L132 78M148 64L150 86M230 60L228 78M212 64L210 86" stroke="#ff233d" stroke-width="2.5"/>
-          <path d="M132 78L130 84M150 86L148 92M228 78L230 84M210 86L212 92" stroke="#ff233d" stroke-width="2.5"/>
-        </g>
+        <use href="#skp" fill="#070001"/>
+        <g id="hat" clip-path="url(#skc)"></g>
+        <use href="#shL"/><use href="#shL" transform="translate(360 0) scale(-1 1)"/>
+        <path d="M180 -86C178 -70 182 -58 180 -44M214 -80l-8 16 8 10-7 14 4 10M146 -66l6 12-5 8M130 14C133 26 140 34 150 38M230 14C227 26 220 34 210 38" stroke-width="1" opacity=".65"/>
+        <use class="sk" href="#sock" transform="translate(150 12) rotate(-12) scale(1.1)"/><use class="sk" href="#sock" transform="translate(210 11) scale(-1 1) rotate(-12) scale(.95)"/>
+        <use href="#sock" transform="translate(150 14) rotate(-12) scale(.68)" stroke="#5a0010" stroke-width="1.2"/><use href="#sock" transform="translate(210 13) scale(-1 1) rotate(-12) scale(.6)" stroke="#5a0010" stroke-width="1.2"/>
+        <ellipse class="em" cx="151" cy="19" rx="6" ry="2.4" fill="#a00018" stroke="none"/><ellipse class="em" cx="209" cy="18" rx="5" ry="2.2" fill="#a00018" stroke="none"/>
+        <path d="M180 22C173 29 170 38 172 43L176 41L180 45L184 41L188 43C190 38 187 29 180 22Z" fill="#000"/>
+        <path d="M153 45H205M153 45L154 53L159 54L160 45M162 45L163 55L168 54L169 45M171 45L172 52L177 53L178 45M180 45L181 56L186 55L187 45M189 45L190 52L195 53L196 45M198 45L199 54L204 53L205 45" fill="#050001" stroke-width="1.2"/>
+        <g class="tears"><use href="#tL"/><use href="#tL" transform="translate(360 0) scale(-1 1)"/></g>
+        <g class="blood"><use href="#bL"/><use href="#bL" transform="translate(360 0) scale(-1 1)"/></g>
+        <g class="mark" transform="translate(157 -80) scale(.46)" fill="#ff2a3d" stroke="#ff2a3d" stroke-width="3.5"><use href="#mk"/><use href="#mk" transform="translate(100 0) scale(-1 1)"/><path d="M50 22C45 22 42 26 42 31C42 38 47 45 50 52C53 45 58 38 58 31C58 26 55 22 50 22Z"/></g>
       </g>
     </g>
     <g id="ruins" transform="translate(300 300) scale(.78) translate(-180 -312)" fill="#000" stroke="#8a0010" stroke-width="1.8" stroke-linejoin="round">

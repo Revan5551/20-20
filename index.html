@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<title>20:20</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="crt" aria-hidden="true"></div>
+<div class="flash" aria-hidden="true"></div>
+
+<main>
+  <h1 class="glitch" data-t="20:20">20:20</h1>
+  <p class="sub">The vessel is incomplete.</p>
+
+  <svg class="shrine" viewBox="0 0 360 380" role="img" aria-label="A shrine with a four-eyed, marked face in its doorway">
+    <defs>
+      <radialGradient id="aura" cx="50%" cy="62%" r="50%">
+        <stop offset="0" stop-color="#8a0010" stop-opacity=".55"/><stop offset="1" stop-color="#000" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <ellipse cx="180" cy="250" rx="175" ry="150" fill="url(#aura)" class="pulse"/>
+    <g fill="#000" stroke="#b0001a" stroke-width="1.6" stroke-linejoin="round">
+      <path d="M60 124C120 120 155 92 180 52C205 92 240 120 300 124C240 130 212 124 180 110C148 124 120 130 60 124Z"/>
+      <path d="M5 196C100 190 150 160 180 128C210 160 260 190 355 196C270 206 220 198 180 182C140 198 90 206 5 196Z"/>
+      <rect x="62" y="200" width="12" height="140"/><rect x="286" y="200" width="12" height="140"/>
+      <rect x="50" y="214" width="260" height="8"/>
+      <rect x="40" y="340" width="280" height="10"/><rect x="28" y="350" width="304" height="10"/><rect x="16" y="360" width="328" height="10"/>
+    </g>
+    <g class="face" fill="#0a0000" stroke="#d1001f" stroke-width="1.6" stroke-linecap="round">
+      <path d="M138 240Q180 218 222 240L218 300Q212 335 180 345Q148 335 142 300Z"/>
+      <path d="M160 244H200M146 294H166M194 294H214M172 322V338M188 322V338" opacity=".8"/>
+      <path d="M156 308Q180 324 204 308M164 311v5M172 315v5M180 316v5M188 315v5M196 311v5" stroke-width="1.2"/>
+      <g class="eyes" stroke="#ff2a3d" stroke-width="2.4">
+        <path d="M147 266l19 5M213 266l-19 5M152 281l12 3M208 281l-12 3"/>
+      </g>
+    </g>
+  </svg>
+
+  <div class="meter" role="progressbar" aria-valuemin="0" aria-valuemax="20" aria-valuenow="0" aria-label="Fingers recovered">
+    <span id="count">0 / 20</span><i><b id="bar"></b></i>
+  </div>
+
+  <div id="grid" class="grid"></div>
+  <p id="readout" class="readout" aria-live="polite">Touch a relic.</p>
+
+  <section id="final" class="final" hidden>
+    <h2 class="glitch" data-t="宿儺">宿儺</h2>
+    <div id="tx" class="tx"></div>
+    <button id="replay" class="link" hidden>Replay the transmission</button>
+  </section>
+</main>
+
+<div id="dev" class="dev" hidden>
+  <b>DEV</b>
+  <button id="d-all">Unlock all</button>
+  <button id="d-lock">Relock</button>
+  <button id="d-wipe">Wipe real progress</button>
+</div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="finger" viewBox="0 0 24 80">
+    <path d="M12 2c5 0 7 4 7 9v52c0 7-3 14-7 14s-7-7-7-14V11c0-5 2-9 7-9z"/>
+    <path d="M5 26h14M5 48h14M9 62l6 0" fill="none"/>
+  </symbol>
+</svg>
+
+<script src="relic.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

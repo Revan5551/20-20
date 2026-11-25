@@ -60,37 +60,48 @@
       </g>
       <path d="M100 222v8l4 4-8 4 8 4-8 4 4 4M260 222v8l4 4-8 4 8 4-8 4 4 4" fill="none" stroke="#6a0010" stroke-width="1.6"/>
       <use class="relic" href="#finger" x="165" y="238" width="30" height="90"/>
-      <g class="skull" transform="translate(180 62) scale(1.18) translate(-180 -62)" stroke-linejoin="round" stroke-linecap="round">
-        <!-- Monochrome, anatomical skull: irregular cranial vault, deep sockets, nasal cavity and teeth -->
-        <defs>
-          <linearGradient id="skullBone" x1="0" y1="0" x2=".85" y2="1">
-            <stop offset="0" stop-color="#f1f1ed"/><stop offset=".28" stop-color="#c9c9c5"/><stop offset=".62" stop-color="#777875"/><stop offset="1" stop-color="#252625"/>
-          </linearGradient>
-          <linearGradient id="jawBone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c7c7c2"/><stop offset=".55" stop-color="#777875"/><stop offset="1" stop-color="#242524"/></linearGradient>
-          <filter id="boneGrain"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" seed="9"/><feColorMatrix values=".25 0 0 0 .25  0 .25 0 0 .25  0 0 .25 0 .25  0 0 0 .16 0"/><feBlend in="SourceGraphic" mode="multiply"/></filter>
-        </defs>
-        <path d="M180 -88C151 -91 126 -76 116 -53C105 -30 112 -8 118 8C111 19 117 36 127 45L139 58L149 70L162 77L198 77L211 70L221 57L233 44C244 31 247 18 240 7C247 -13 247 -34 238 -54C226 -78 205 -88 180 -88Z" fill="url(#skullBone)" stroke="#171817" stroke-width="2.5"/>
-        <path d="M127 -58C141 -79 164 -84 180 -81C201 -84 220 -72 232 -53" fill="none" stroke="#f7f7f4" stroke-width="3" opacity=".6"/>
-        <path d="M119 -31L130 -18L121 -4L129 9L122 23M239 -32L229 -17L238 -4L229 10L237 23M145 -79L151 -65L146 -51M212 -77L205 -61L214 -48" fill="none" stroke="#555654" stroke-width="2" opacity=".8"/>
-        <path d="M120 1C135 -14 151 -19 165 -12C174 -7 176 6 169 19C160 34 142 36 128 25C119 18 115 9 120 1Z" fill="#090a09" stroke="#343534" stroke-width="3"/>
-        <path d="M240 1C225 -14 209 -19 195 -12C186 -7 184 6 191 19C200 34 218 36 232 25C241 18 245 9 240 1Z" fill="#090a09" stroke="#343534" stroke-width="3"/>
-        <path d="M126 4C139 -7 153 -10 164 -3M234 4C221 -7 207 -10 196 -3" fill="none" stroke="#9a9a96" stroke-width="2" opacity=".65"/>
-        <path d="M177 -7L166 17L177 27L184 27L194 16L183 -7Z" fill="#090a09" stroke="#555654" stroke-width="2.5"/>
-        <path d="M176 26L163 39L168 50L180 55L193 49L197 39L184 26Z" fill="#111211" stroke="#555654" stroke-width="2"/>
-        <path d="M137 38L146 47L154 51L164 53L180 55L196 53L207 50L216 43L222 35L217 58L207 70L194 77L166 77L151 71L141 59Z" fill="url(#jawBone)" stroke="#171817" stroke-width="2"/>
-        <path d="M145 51L157 56L170 58L180 58L190 58L203 56L215 51" fill="none" stroke="#333433" stroke-width="2"/>
-        <g id="jaw">
-          <path d="M143 51C140 62 146 73 157 78L166 83L194 83L203 78C215 73 220 62 217 51L210 56L202 63L191 67L169 67L158 63L150 56Z" fill="url(#jawBone)" stroke="#181918" stroke-width="2.2"/>
-          <path d="M157 61L168 65L192 65L203 61L204 73L195 78L165 78L156 73Z" fill="#111211" stroke="#444544" stroke-width="1.5"/>
-          <g fill="#deded9" stroke="#4b4c4a" stroke-width="1.1">
-            <path d="M158 61L165 63L165 77L160 76Z"/><path d="M166 63L173 64L173 79L167 78Z"/><path d="M174 64L180 64L180 80L175 79Z"/><path d="M181 64L187 64L187 79L182 80Z"/><path d="M188 63L195 62L194 78L189 79Z"/><path d="M196 61L202 59L200 76L195 77Z"/>
-          </g>
+      <g class="skull" transform="translate(180 62) scale(1.18) translate(-180 -62)" stroke-linecap="round" stroke-linejoin="round">
+        <!-- Anatomical skull, rendered as a restrained crimson line engraving -->
+        <g id="skull-normal" fill="none" stroke="#d1001f" stroke-width="2.15">
+          <!-- cranial vault and cheek bones: lowered, mournful gaze -->
+          <path d="M180 -88C155 -91 133 -80 120 -61C109 -43 106 -22 111 -4C113 8 119 20 127 29L137 45C143 54 153 62 164 67L174 70L186 70L197 67C208 62 217 54 223 45L233 29C241 17 247 2 248 -14C251 -35 244 -57 231 -73C218 -86 200 -90 180 -88Z"/>
+          <path d="M125 -62C140 -78 160 -84 180 -82C201 -84 220 -76 233 -61M116 -31C123 -17 123 -1 119 12M244 -32C237 -17 237 -1 241 12" opacity=".65"/>
+          <!-- heavy, sloping brows -->
+          <path d="M120 -20C132 -34 149 -39 166 -29C172 -25 175 -17 174 -10C159 -18 143 -17 128 -7L120 -20Z"/>
+          <path d="M240 -20C228 -34 211 -39 194 -29C188 -25 185 -17 186 -10C201 -18 217 -17 232 -7L240 -20Z"/>
+          <!-- deep sockets, downward/closed-looking -->
+          <path d="M124 -6C135 -17 151 -20 163 -13C171 -8 174 1 171 10C167 23 154 31 140 29C128 26 120 15 121 5Z" fill="#000"/>
+          <path d="M236 -6C225 -17 209 -20 197 -13C189 -8 186 1 189 10C193 23 206 31 220 29C232 26 240 15 239 5Z" fill="#000"/>
+          <path d="M130 4C139 13 152 17 164 12M230 4C221 13 208 17 196 12" opacity=".8"/>
+          <!-- nasal aperture -->
+          <path d="M178 -9L166 17L169 31L180 37L191 31L194 17L182 -9Z" fill="#000"/>
+          <path d="M169 31L174 27M191 31L186 27"/>
+          <!-- maxilla and cheek contours -->
+          <path d="M126 32L139 39L150 47L164 51L180 53L196 51L210 47L221 39L234 32M132 40L127 51L139 61L154 67L166 70L194 70L206 67L221 61L233 51L228 40"/>
+          <!-- closed, mournful mouth and teeth -->
+          <path d="M148 53C158 59 169 61 180 61C191 61 202 59 212 53L207 68L195 75L165 75L153 68Z"/>
+          <path d="M155 57L160 69L166 71L168 59M172 60L174 73M181 60L182 73M190 59L192 71L198 69L203 57"/>
+          <!-- small anatomical fissures and etched detail -->
+          <path d="M139 -66L145 -53L139 -43L147 -33M221 -66L215 -53L221 -43L213 -33M151 -78L157 -64M209 -78L203 -64M132 22L143 28M228 22L217 28M148 78L159 84L170 80M212 78L201 84L190 80" opacity=".7"/>
+          <path d="M151 36L158 33M202 33L209 36M143 45L149 48M211 48L217 45" opacity=".55"/>
         </g>
-        <path d="M132 42L141 34L149 42L146 52L138 53ZM228 42L219 34L211 42L214 52L222 53Z" fill="#3b3c3a" stroke="#777875" stroke-width="1.5"/>
-        <path d="M132 -44L141 -38L136 -26L142 -18M228 -44L219 -38L224 -26L218 -18M180 -79L177 -57L183 -47" fill="none" stroke="#666765" stroke-width="1.5" opacity=".75"/>
-        <!-- faint, non-coloured ritual markings etched into the bone -->
-        <g fill="none" stroke="#252625" stroke-width="2.5" opacity=".85"><path d="M145 -70L151 -53L143 -43L150 -31M215 -70L209 -53L217 -43L210 -31"/><path d="M155 -34L163 -28L159 -18M205 -34L197 -28L201 -18"/></g>
-        <path d="M146 82L153 92L164 88L172 96L181 90L190 96L199 89L207 92L214 81" fill="none" stroke="#171817" stroke-width="2.5"/>
+        <!-- forward-facing scream state: visible only during the creature easter egg -->
+        <g id="skull-scream" fill="none" stroke="#d1001f" stroke-width="2.2" hidden>
+          <path d="M180 -88C153 -91 130 -78 117 -56C105 -35 105 -11 113 10C117 24 126 37 137 48L145 63L159 75L173 81L187 81L201 75L215 63L223 48L237 35C246 18 251 -5 247 -28C243 -53 228 -76 207 -85C197 -89 188 -90 180 -88Z"/>
+          <path d="M123 -62C143 -79 160 -84 180 -82C201 -84 219 -77 235 -60M117 -32L126 -16L119 2M243 -32L234 -16L241 2" opacity=".65"/>
+          <path d="M119 -13C133 -29 153 -34 169 -24C177 -18 178 -4 173 9C166 25 151 31 136 26C123 21 116 5 119 -13Z" fill="#000"/>
+          <path d="M241 -13C227 -29 207 -34 191 -24C183 -18 182 -4 187 9C194 25 209 31 224 26C237 21 244 5 241 -13Z" fill="#000"/>
+          <path d="M131 -6C143 -16 157 -18 168 -10M229 -6C217 -16 203 -18 192 -10"/>
+          <path d="M180 -6L165 22L169 37L180 43L191 37L195 22L180 -6Z" fill="#000"/>
+          <path d="M132 37L145 46L159 53L180 57L201 53L215 46L228 37L222 59L208 72L194 80L166 80L152 72L138 59Z"/>
+          <!-- gaping mouth -->
+          <path id="scream-mouth" d="M153 57C158 49 169 45 180 45C191 45 202 49 207 57L203 77C198 89 191 96 180 98C169 96 162 89 157 77Z" fill="#000"/>
+          <path d="M158 58L164 55L168 62L174 58L180 62L186 58L192 62L196 55L202 58M159 77L166 73L172 78L180 74L188 78L194 73L201 77"/>
+          <!-- blood tears, drawn as outline strokes only -->
+          <path class="blood" d="M130 21C126 37 123 49 127 60C130 66 134 62 135 56C137 45 133 31 130 21ZM148 29C144 43 141 54 144 64C148 70 153 66 154 59C155 48 151 37 148 29ZM230 21C234 37 237 49 233 60C230 66 226 62 225 56C223 45 227 31 230 21ZM212 29C216 43 219 54 216 64C212 70 207 66 206 59C205 48 209 37 212 29Z" stroke="#ff233d" stroke-width="2.5"/>
+          <path d="M130 60L132 78M148 64L150 86M230 60L228 78M212 64L210 86" stroke="#ff233d" stroke-width="2.5"/>
+          <path d="M132 78L130 84M150 86L148 92M228 78L230 84M210 86L212 92" stroke="#ff233d" stroke-width="2.5"/>
+        </g>
       </g>
     </g>
     <g id="ruins" transform="translate(300 300) scale(.78) translate(-180 -312)" fill="#000" stroke="#8a0010" stroke-width="1.8" stroke-linejoin="round">

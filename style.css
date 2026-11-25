@@ -79,11 +79,13 @@ h1{font-size:clamp(3.2rem,16vw,5.5rem);animation:flick 7s infinite}
 @keyframes drift{0%{opacity:0;transform:translateY(0)}30%{opacity:.7}100%{opacity:0;transform:translateY(-45px)}}
 .ruin .pulse{animation-duration:9s}
 
-.sk{fill:#030001;stroke:#2a0509;stroke-width:1.4}
-.figure .sk{fill:#111}
-.blood{display:none}.figure .blood{display:inline}.figure .tears{display:none}
-#jaw{transition:transform 1.5s}
-.figure #jaw{transform:translateY(16px);animation:jaw .22s infinite alternate}
+.sk{fill:none;stroke:#d1001f;stroke-width:1.8}
+.skull{filter:drop-shadow(0 0 3px rgba(209,0,31,.25))}
+#skull-scream{display:none}
+.figure #skull-normal{display:none}
+.figure #skull-scream{display:inline}
+.blood{fill:none;stroke:#ff233d}
+#scream-mouth{fill:#000;stroke:#d1001f}
 .dr{animation:drip 3.2s ease-in infinite}
 #figure{display:none;transform-origin:300px 300px;animation:breathe 8s ease-in-out infinite}
 .figure #figure{display:inline}
@@ -91,7 +93,7 @@ h1{font-size:clamp(3.2rem,16vw,5.5rem);animation:flick 7s infinite}
 .fh{fill:none;stroke:#5a0010;stroke-width:1.1;stroke-linecap:round}
 .fm ellipse,.fm path{fill:none;stroke:#7a0f1e;stroke-width:2}
 .fm.on ellipse,.fm.on path{stroke:#ff2a3d;filter:drop-shadow(0 0 3px #ff2a3d)}
-.figure .skull{filter:drop-shadow(0 0 8px rgba(235,235,235,.18))}
+.figure .skull{filter:drop-shadow(0 0 6px rgba(209,0,31,.4))}
 @keyframes drip{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(26px);opacity:0}}
 @keyframes jaw{to{transform:translateY(19px)}}
 @keyframes breathe{50%{transform:scale(1.025)}}

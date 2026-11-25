@@ -58,7 +58,7 @@ h1{font-size:clamp(3.2rem,16vw,5.5rem);animation:flick 7s infinite}
 .mandala{--p:0;width:min(100%,580px);height:auto;display:block;margin:10px auto 0;overflow:visible}
 .mandala text{font-family:var(--serif)}
 .sb{stroke:#5a0a14;stroke-width:1}
-.skull{filter:drop-shadow(0 0 6px rgba(209,0,31,.55))}
+.skull{filter:drop-shadow(0 0 5px rgba(220,220,220,.12))}
 .mark{filter:drop-shadow(0 0 4px #ff2a3d);animation:pulse 3.5s ease-in-out infinite}
 .fg{cursor:pointer;color:#c0172e;outline:none}
 .fg use{fill:#1c0207;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round;filter:drop-shadow(0 0 3px rgba(209,0,31,.5))}
@@ -80,7 +80,7 @@ h1{font-size:clamp(3.2rem,16vw,5.5rem);animation:flick 7s infinite}
 .ruin .pulse{animation-duration:9s}
 
 .sk{fill:#030001;stroke:#2a0509;stroke-width:1.4}
-.figure .sk{fill:#4a0008}
+.figure .sk{fill:#111}
 .blood{display:none}.figure .blood{display:inline}.figure .tears{display:none}
 #jaw{transition:transform 1.5s}
 .figure #jaw{transform:translateY(16px);animation:jaw .22s infinite alternate}
@@ -91,7 +91,7 @@ h1{font-size:clamp(3.2rem,16vw,5.5rem);animation:flick 7s infinite}
 .fh{fill:none;stroke:#5a0010;stroke-width:1.1;stroke-linecap:round}
 .fm ellipse,.fm path{fill:none;stroke:#7a0f1e;stroke-width:2}
 .fm.on ellipse,.fm.on path{stroke:#ff2a3d;filter:drop-shadow(0 0 3px #ff2a3d)}
-.figure .skull{filter:drop-shadow(0 0 8px rgba(255,20,40,.7))}
+.figure .skull{filter:drop-shadow(0 0 8px rgba(235,235,235,.18))}
 @keyframes drip{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(26px);opacity:0}}
 @keyframes jaw{to{transform:translateY(19px)}}
 @keyframes breathe{50%{transform:scale(1.025)}}

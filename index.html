@@ -61,21 +61,36 @@
       <path d="M100 222v8l4 4-8 4 8 4-8 4 4 4M260 222v8l4 4-8 4 8 4-8 4 4 4" fill="none" stroke="#6a0010" stroke-width="1.6"/>
       <use class="relic" href="#finger" x="165" y="238" width="30" height="90"/>
       <g class="skull" transform="translate(180 62) scale(1.18) translate(-180 -62)" stroke-linejoin="round" stroke-linecap="round">
-        <path d="M148 54L146 68C160 78 200 78 214 68L212 54Z" fill="#000"/>
+        <!-- Monochrome, anatomical skull: irregular cranial vault, deep sockets, nasal cavity and teeth -->
+        <defs>
+          <linearGradient id="skullBone" x1="0" y1="0" x2=".85" y2="1">
+            <stop offset="0" stop-color="#f1f1ed"/><stop offset=".28" stop-color="#c9c9c5"/><stop offset=".62" stop-color="#777875"/><stop offset="1" stop-color="#252625"/>
+          </linearGradient>
+          <linearGradient id="jawBone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c7c7c2"/><stop offset=".55" stop-color="#777875"/><stop offset="1" stop-color="#242524"/></linearGradient>
+          <filter id="boneGrain"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" seed="9"/><feColorMatrix values=".25 0 0 0 .25  0 .25 0 0 .25  0 0 .25 0 .25  0 0 0 .16 0"/><feBlend in="SourceGraphic" mode="multiply"/></filter>
+        </defs>
+        <path d="M180 -88C151 -91 126 -76 116 -53C105 -30 112 -8 118 8C111 19 117 36 127 45L139 58L149 70L162 77L198 77L211 70L221 57L233 44C244 31 247 18 240 7C247 -13 247 -34 238 -54C226 -78 205 -88 180 -88Z" fill="url(#skullBone)" stroke="#171817" stroke-width="2.5"/>
+        <path d="M127 -58C141 -79 164 -84 180 -81C201 -84 220 -72 232 -53" fill="none" stroke="#f7f7f4" stroke-width="3" opacity=".6"/>
+        <path d="M119 -31L130 -18L121 -4L129 9L122 23M239 -32L229 -17L238 -4L229 10L237 23M145 -79L151 -65L146 -51M212 -77L205 -61L214 -48" fill="none" stroke="#555654" stroke-width="2" opacity=".8"/>
+        <path d="M120 1C135 -14 151 -19 165 -12C174 -7 176 6 169 19C160 34 142 36 128 25C119 18 115 9 120 1Z" fill="#090a09" stroke="#343534" stroke-width="3"/>
+        <path d="M240 1C225 -14 209 -19 195 -12C186 -7 184 6 191 19C200 34 218 36 232 25C241 18 245 9 240 1Z" fill="#090a09" stroke="#343534" stroke-width="3"/>
+        <path d="M126 4C139 -7 153 -10 164 -3M234 4C221 -7 207 -10 196 -3" fill="none" stroke="#9a9a96" stroke-width="2" opacity=".65"/>
+        <path d="M177 -7L166 17L177 27L184 27L194 16L183 -7Z" fill="#090a09" stroke="#555654" stroke-width="2.5"/>
+        <path d="M176 26L163 39L168 50L180 55L193 49L197 39L184 26Z" fill="#111211" stroke="#555654" stroke-width="2"/>
+        <path d="M137 38L146 47L154 51L164 53L180 55L196 53L207 50L216 43L222 35L217 58L207 70L194 77L166 77L151 71L141 59Z" fill="url(#jawBone)" stroke="#171817" stroke-width="2"/>
+        <path d="M145 51L157 56L170 58L180 58L190 58L203 56L215 51" fill="none" stroke="#333433" stroke-width="2"/>
         <g id="jaw">
-          <path d="M142 50C141 60 147 70 158 74L168 78H192L202 74C213 70 219 60 218 50L210 56H150Z" fill="url(#bone2)" stroke="#2a0509"/>
-          <path d="M156 55H204V62H156Z" fill="#cdbfb8" stroke="#2a0509" stroke-width=".8"/><path d="M164 55v7M172 55v7M180 55v7M188 55v7M196 55v7" stroke="#2a0509" stroke-width=".8"/>
+          <path d="M143 51C140 62 146 73 157 78L166 83L194 83L203 78C215 73 220 62 217 51L210 56L202 63L191 67L169 67L158 63L150 56Z" fill="url(#jawBone)" stroke="#181918" stroke-width="2.2"/>
+          <path d="M157 61L168 65L192 65L203 61L204 73L195 78L165 78L156 73Z" fill="#111211" stroke="#444544" stroke-width="1.5"/>
+          <g fill="#deded9" stroke="#4b4c4a" stroke-width="1.1">
+            <path d="M158 61L165 63L165 77L160 76Z"/><path d="M166 63L173 64L173 79L167 78Z"/><path d="M174 64L180 64L180 80L175 79Z"/><path d="M181 64L187 64L187 79L182 80Z"/><path d="M188 63L195 62L194 78L189 79Z"/><path d="M196 61L202 59L200 76L195 77Z"/>
+          </g>
         </g>
-        <path d="M180 -86C142 -86 118 -62 117 -28C116 -8 122 6 128 16C126 30 130 42 138 48L148 54H212L222 48C230 42 234 30 232 16C238 6 244 -8 243 -28C242 -62 218 -86 180 -86Z" fill="url(#bone)" stroke="#2a0509" stroke-width="1.2"/>
-        <ellipse cx="180" cy="-58" rx="34" ry="20" fill="#f0e6e0" opacity=".22"/>
-        <use href="#shL"/><use href="#shL" transform="translate(360 0) scale(-1 1)"/>
-        <path d="M180 -86C178 -70 182 -58 180 -44M214 -76l-9 15 7 9-6 13" fill="none" stroke="#2a0509" opacity=".55"/>
-        <use class="sk" href="#sock" transform="translate(151 11) rotate(-12)"/><use class="sk" href="#sock" transform="translate(209 11) scale(-1 1) rotate(-12)"/>
-        <path d="M180 22C174 28 171 36 173 42C175 45 178 43 180 40C182 43 185 45 187 42C189 36 186 28 180 22Z" fill="#050001" stroke="#2a0509"/>
-        <path d="M154 45H206V54H154Z" fill="#d6c9c2" stroke="#2a0509" stroke-width=".8"/><path d="M162 45v9M170 45v9M178 45v9M182 45v9M190 45v9M198 45v9" stroke="#2a0509" stroke-width=".8"/>
-        <g class="tears"><use href="#tL"/><use href="#tL" transform="translate(360 0) scale(-1 1)"/></g>
-        <g class="blood"><use href="#bL"/><use href="#bL" transform="translate(360 0) scale(-1 1)"/></g>
-        <g class="mark" transform="translate(157 -80) scale(.46)" fill="#ff2a3d" stroke="#ff2a3d" stroke-width="3.5"><use href="#mk"/><use href="#mk" transform="translate(100 0) scale(-1 1)"/><path d="M50 22C45 22 42 26 42 31C42 38 47 45 50 52C53 45 58 38 58 31C58 26 55 22 50 22Z"/></g>
+        <path d="M132 42L141 34L149 42L146 52L138 53ZM228 42L219 34L211 42L214 52L222 53Z" fill="#3b3c3a" stroke="#777875" stroke-width="1.5"/>
+        <path d="M132 -44L141 -38L136 -26L142 -18M228 -44L219 -38L224 -26L218 -18M180 -79L177 -57L183 -47" fill="none" stroke="#666765" stroke-width="1.5" opacity=".75"/>
+        <!-- faint, non-coloured ritual markings etched into the bone -->
+        <g fill="none" stroke="#252625" stroke-width="2.5" opacity=".85"><path d="M145 -70L151 -53L143 -43L150 -31M215 -70L209 -53L217 -43L210 -31"/><path d="M155 -34L163 -28L159 -18M205 -34L197 -28L201 -18"/></g>
+        <path d="M146 82L153 92L164 88L172 96L181 90L190 96L199 89L207 92L214 81" fill="none" stroke="#171817" stroke-width="2.5"/>
       </g>
     </g>
     <g id="ruins" transform="translate(300 300) scale(.78) translate(-180 -312)" fill="#000" stroke="#8a0010" stroke-width="1.8" stroke-linejoin="round">

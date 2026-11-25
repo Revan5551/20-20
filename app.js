@@ -31,17 +31,15 @@ const FINALE = [
 ];
 
 const $ = s => document.querySelector(s);
-const EGGS = { ruin: .05, figure: .04 };            // odds per load; never on the very first visit
+const EGGS = { combined: .80, ruin: .40, figure: .40 }; // testing: 80% combined chance, split evenly
 const MODE = (() => {                                // ?egg=ruin | figure | none  forces one
   const m = location.search.match(/[?&]egg=(\w+)/), q = location.search.match(/[?&]ruin=(\d)/);
-  if (m) return ['ruin', 'figure'].includes(m[1]) ? m[1] : 'normal';
+  if (m) return ['ruin', 'scream', 'figure'].includes(m[1]) ? (m[1] === 'scream' ? 'ruin' : m[1]) : 'normal';
   if (q) return q[1] === '1' ? 'ruin' : 'normal';
   try {
-    const seen = localStorage.getItem('arg2020:visited');
     localStorage.setItem('arg2020:visited', '1');
-    if (!seen) return 'normal';
     const x = Math.random();
-    return x < EGGS.ruin ? 'ruin' : x < EGGS.ruin + EGGS.figure ? 'figure' : 'normal';
+    return x < EGGS.combined ? (Math.random() < .5 ? 'ruin' : 'figure') : 'normal';
   } catch (e) { return 'normal'; }
 })();
 const RUIN = MODE === 'ruin';

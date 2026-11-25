@@ -87,7 +87,7 @@ h1{font-size:clamp(3.2rem,16vw,5.5rem);animation:flick 7s infinite}
 .dr{animation:drip 3.2s ease-in infinite}
 #figure{display:none;transform-origin:300px 300px;animation:breathe 8s ease-in-out infinite}
 .figure #figure{display:inline}
-.fgpath{fill:#000;stroke:#7a0014;stroke-width:1.6;stroke-linejoin:round}
+.fgpath{fill:url(#fp);stroke:#b0001a;stroke-width:1.5;stroke-linejoin:round}
 .fh{fill:none;stroke:#5a0010;stroke-width:1.1;stroke-linecap:round}
 .fm ellipse,.fm path{fill:none;stroke:#7a0f1e;stroke-width:2}
 .fm.on ellipse,.fm.on path{stroke:#ff2a3d;filter:drop-shadow(0 0 3px #ff2a3d)}
@@ -103,3 +103,10 @@ h1{font-size:clamp(3.2rem,16vw,5.5rem);animation:flick 7s infinite}
 .em{animation:pulse 3s ease-in-out infinite}
 .ey{transform-box:fill-box;transform-origin:center;animation:blinkE 6s infinite}
 @keyframes blinkE{0%,94%,100%{transform:translate(0,0) scaleY(1)}97%{transform:scaleY(.1)}}
+
+.fh2{fill:none;stroke:#c4001a;stroke-width:1;stroke-linecap:round;opacity:.85}
+.eye{filter:drop-shadow(0 0 7px #ff2a3d)}
+.fm ellipse,.fm path{stroke:#a0152a}
+.tears{display:none}
+.figure #jaw{transform:translateY(26px);transition:none;animation:none}
+.figure .dr,.figure #figure,.figure .ey,.figure .mark,.figure .em{animation:none}

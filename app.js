@@ -31,16 +31,23 @@ const FINALE = [
 ];
 
 const $ = s => document.querySelector(s);
-const RUIN_CHANCE = .05;                              // easter egg odds per load (never on the very first visit)
-const RUIN = (() => {                                // ?ruin=1 forces it, ?ruin=0 disables it
-  const q = location.search.match(/[?&]ruin=(\d)/); if (q) return q[1] === '1';
+const EGGS = { ruin: .05, figure: .04 };            // odds per load; never on the very first visit
+const MODE = (() => {                                // ?egg=ruin | figure | none  forces one
+  const m = location.search.match(/[?&]egg=(\w+)/), q = location.search.match(/[?&]ruin=(\d)/);
+  if (m) return ['ruin', 'figure'].includes(m[1]) ? m[1] : 'normal';
+  if (q) return q[1] === '1' ? 'ruin' : 'normal';
   try {
     const seen = localStorage.getItem('arg2020:visited');
     localStorage.setItem('arg2020:visited', '1');
-    return !!seen && Math.random() < RUIN_CHANCE;    // rolled fresh on every refresh
-  } catch (e) { return false; }                      // no storage = can't know it's a repeat visit
+    if (!seen) return 'normal';
+    const x = Math.random();
+    return x < EGGS.ruin ? 'ruin' : x < EGGS.ruin + EGGS.figure ? 'figure' : 'normal';
+  } catch (e) { return 'normal'; }
 })();
-window.RUIN = RUIN; document.documentElement.classList.toggle('ruin', RUIN);
+const RUIN = MODE === 'ruin';
+window.MODE = MODE;
+if (MODE !== 'normal') document.documentElement.classList.add(MODE);
+window.RUIN = RUIN;
 const dev = /[?&]dev=1/.test(location.search);
 let devAll = false, played = false, selId = null, typer = 0;
 const FLAG = 'arg2020:finale';
@@ -63,6 +70,32 @@ for (let k = 0; k < 8; k++) {                        // sigil circles
   S.appendChild(mk('circle', { cx: x, cy: y, r: 16, fill: '#050001', stroke: '#8a0014', 'stroke-width': 1.5 }));
   S.appendChild(mk('circle', { cx: x, cy: y, r: 12, fill: 'none', stroke: '#5a0a14', 'stroke-dasharray': '2 2' }));
   S.appendChild(mk('use', { href: '#sg' + (k % 4), x, y, fill: 'none', stroke: '#d1001f', 'stroke-width': 1.3 }));
+}
+if (MODE === 'figure') {                             // the beast: shaggy fur + 20 ringed eyes
+  const F = $('#fur'), furL = mk('g', {});
+  const fur = (id, half, n, len, host, flip) => {
+    const p = document.getElementById(id); let L; try { L = p.getTotalLength(); } catch (e) { return; }
+    for (let i = 0; i < n; i++) {
+      const t = i / n * L, a = p.getPointAtLength(t), q = p.getPointAtLength(Math.min(L, t + 2));
+      const dx = q.x - a.x, dy = q.y - a.y, m = Math.hypot(dx, dy) || 1, nx = -dy / m, ny = dx / m, s = rnd() < .5 ? -1 : 1;
+      const l = len * (.5 + rnd()), x = a.x + nx * half * s, y = a.y + ny * half * s;
+      host.appendChild(mk('path', { d: 'M' + x + ' ' + y + 'q' + (nx * l * s * .5 + dx / m * 7) + ' ' + (ny * l * s * .5 + dy / m * 7) + ' ' + nx * l * s + ' ' + ny * l * s, class: 'fh' }));
+    }
+  };
+  fur('pa', 46, 130, 28, F); fur('pt', 15, 22, 20, F);
+  fur('pl', 33, 46, 24, furL); fur('pl2', 23, 40, 20, furL);
+  for (const [fx, fy] of [[58, 575], [148, 565]]) for (let k = 0; k < 14; k++) {  // ragged paws
+    const a = (k / 13 - .5) * 2.2, l = 18 + rnd() * 26;
+    furL.appendChild(mk('path', { d: 'M' + (fx + (k - 6.5) * 3) + ' ' + (fy - 8) + 'l' + Math.sin(a) * l + ' ' + Math.cos(a) * l, class: 'fh' }));
+  }
+  F.appendChild(furL); F.appendChild(mk('use', { href: '#furL', transform: 'translate(600 0) scale(-1 1)' })); furL.id = 'furL';
+  let n = 0;
+  [6, 7, 7].forEach((c, r) => { for (let k = 0; k < c; k++) {
+    const th = (28 + k * (124 / (c - 1)) + (r % 2) * 5) * Math.PI / 180, rad = 222 + r * 25;
+    const rot = Math.atan2(-Math.cos(th), -Math.sin(th)) * 180 / Math.PI;
+    const g = mk('g', { class: 'fm', 'data-id': Relic.IDS[n++], transform: 'translate(' + (300 + rad * Math.cos(th)) + ' ' + (340 - rad * Math.sin(th)) + ') rotate(' + rot + ')' });
+    g.innerHTML = '<ellipse rx="15" ry="9.5"/><ellipse rx="8.5" ry="4.6"/><path d="M-6 0H6"/>'; F.appendChild(g);
+  } });
 }
 const SEG = ['M0 -6V6', 'M0 -1L-4 -6', 'M0 1L4 6', 'M-4 0H4', 'M-4 -6Q4 -6 4 0', 'M4 6Q-4 6 -4 0', 'M-4 -6L4 -2', 'M-3 6L3 6'];
 for (let i = 0; i < 72; i++) {                       // invented rune ring
@@ -119,10 +152,11 @@ function update() {
     b.classList.toggle('on', on);
     b.setAttribute('aria-label', 'Finger ' + b.dataset.id + (on ? ', recovered' : ', locked'));
   });
+  document.querySelectorAll('.fm').forEach(t => t.classList.toggle('on', s.has(t.dataset.id)));
   document.querySelectorAll('.tick').forEach(t => t.classList.toggle('on', s.has(t.dataset.id)));
   $('.mandala').style.setProperty('--p', n / 20);
   $('#count').textContent = n + ' / 20';
-  $('.sub').textContent = n === 20 ? 'The vessel is whole.' : RUIN ? 'Something got here first.' : 'The vessel is incomplete.';
+  $('.sub').textContent = n === 20 ? 'The vessel is whole.' : RUIN ? 'Something got here first.' : MODE === 'figure' ? 'It was already here.' : 'The vessel is incomplete.';
   $('#bar').style.width = (n / 20 * 100) + '%';
   $('.meter').setAttribute('aria-valuenow', n);
   if (n === 20 && !played) {

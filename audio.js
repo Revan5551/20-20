@@ -3,7 +3,7 @@
    (unless the player muted it, which is remembered). */
 (function () {
   const btn = document.getElementById('snd'), MUTE = 'arg2020:mute';
-  const el = new Audio(window.RUIN ? 'audio/quiet-dusk.mp3' : 'audio/rhubarb.mp3');
+  const el = new Audio({ ruin: 'audio/quiet-dusk.mp3', figure: 'audio/gyroscope.mp3' }[window.MODE] || 'audio/rhubarb.mp3');
   el.loop = true; el.volume = .5; el.preload = 'auto';
   let on = false, ctx = null;
   const muted = () => { try { return localStorage.getItem(MUTE) === '1'; } catch (e) { return false; } };
@@ -13,8 +13,8 @@
     ctx = new (window.AudioContext || window.webkitAudioContext)();
     const g = ctx.createGain(); g.gain.setValueAtTime(0, ctx.currentTime);
     g.gain.linearRampToValueAtTime(.07, ctx.currentTime + 4); g.connect(ctx.destination);
-    const f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = window.RUIN ? 260 : 420; f.connect(g);
-    (window.RUIN ? [49, 49.3, 73.4] : [55, 55.4, 82.5, 110.7]).forEach(hz => {
+    const f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = { ruin: 260, figure: 200 }[window.MODE] || 420; f.connect(g);
+    ({ ruin: [49, 49.3, 73.4], figure: [41, 43.2, 61.7, 92.4] }[window.MODE] || [55, 55.4, 82.5, 110.7]).forEach(hz => {
       const o = ctx.createOscillator(); o.type = hz > 100 ? 'triangle' : 'sine';
       o.frequency.value = hz; o.connect(f); o.start();
     });

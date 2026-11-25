@@ -36,6 +36,13 @@ let devAll = false, played = false, selId = null, typer = 0;
 const FLAG = 'arg2020:finale';
 const owned = () => { const s = new Set(Relic.all()); if (devAll) Relic.IDS.forEach(i => s.add(i)); return s; };
 
+const T = $('#ticks'), NS = 'http://www.w3.org/2000/svg';
+Relic.IDS.forEach((id, i) => {
+  const a = (i * 18 - 90) * Math.PI / 180, l = document.createElementNS(NS, 'line');
+  [['x1', 50], ['x2', 59]].forEach(([k, r]) => l.setAttribute(k, 180 + r * Math.cos(a)));
+  [['y1', 50], ['y2', 59]].forEach(([k, r]) => l.setAttribute(k, 281 + r * Math.sin(a)));
+  l.setAttribute('class', 'tick'); l.dataset.id = id; T.appendChild(l);
+});
 const grid = $('#grid');
 Relic.IDS.forEach(id => {
   const b = document.createElement('button');
@@ -83,7 +90,10 @@ function update() {
     b.classList.toggle('on', on);
     b.setAttribute('aria-label', 'Finger ' + b.dataset.id + (on ? ', recovered' : ', locked'));
   });
+  document.querySelectorAll('.tick').forEach(t => t.classList.toggle('on', s.has(t.dataset.id)));
+  $('.shrine').style.setProperty('--p', n / 20);
   $('#count').textContent = n + ' / 20';
+  $('.sub').textContent = n === 20 ? 'The vessel is whole.' : 'The vessel is incomplete.';
   $('#bar').style.width = (n / 20 * 100) + '%';
   $('.meter').setAttribute('aria-valuenow', n);
   if (n === 20 && !played) {

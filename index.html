@@ -11,11 +11,12 @@
 <div class="crt" aria-hidden="true"></div>
 <div class="flash" aria-hidden="true"></div>
 
+<button id="snd" class="snd" aria-pressed="false">sound off</button>
 <main>
   <h1 class="glitch" data-t="20:20">20:20</h1>
   <p class="sub">The vessel is incomplete.</p>
 
-  <svg class="shrine" viewBox="0 0 360 380" role="img" aria-label="A shrine with a four-eyed, marked face in its doorway">
+  <svg class="shrine" viewBox="0 0 360 380" role="img" aria-label="A shrine topped with a horned skull. A sealed finger floats in the doorway inside a ring of 20 marks.">
     <defs>
       <radialGradient id="aura" cx="50%" cy="62%" r="50%">
         <stop offset="0" stop-color="#8a0010" stop-opacity=".55"/><stop offset="1" stop-color="#000" stop-opacity="0"/>
@@ -29,14 +30,15 @@
       <rect x="50" y="214" width="260" height="8"/>
       <rect x="40" y="340" width="280" height="10"/><rect x="28" y="350" width="304" height="10"/><rect x="16" y="360" width="328" height="10"/>
     </g>
-    <g class="face" fill="#0a0000" stroke="#d1001f" stroke-width="1.6" stroke-linecap="round">
-      <path d="M138 240Q180 218 222 240L218 300Q212 335 180 345Q148 335 142 300Z"/>
-      <path d="M160 244H200M146 294H166M194 294H214M172 322V338M188 322V338" opacity=".8"/>
-      <path d="M156 308Q180 324 204 308M164 311v5M172 315v5M180 316v5M188 315v5M196 311v5" stroke-width="1.2"/>
-      <g class="eyes" stroke="#ff2a3d" stroke-width="2.4">
-        <path d="M147 266l19 5M213 266l-19 5M152 281l12 3M208 281l-12 3"/>
-      </g>
+    <g class="skull" transform="translate(0,5)" fill="#000" stroke="#d1001f" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M162 18C150 16 142 8 146 0M198 18C210 16 218 8 214 0" fill="none"/>
+      <path d="M164 38c-6-4-8-12-4-19 4-7 12-10 20-10s16 3 20 10c4 7 2 15-4 19v8h-6v-4h-3v4h-14v-4h-3v4h-6z"/>
+      <path class="sockets" d="M168 27a4 5 0 1 0 8 0a4 5 0 1 0-8 0M184 27a4 5 0 1 0 8 0a4 5 0 1 0-8 0M180 33l-3 5h6z" fill="#ff2a3d" stroke="none"/>
     </g>
+    <path d="M100 222v8l4 4-8 4 8 4-8 4 4 4M260 222v8l4 4-8 4 8 4-8 4 4 4" fill="none" stroke="#6a0010" stroke-width="1.4"/>
+    <circle cx="180" cy="281" r="45" fill="none" stroke="#5a0010" stroke-dasharray="2 5"/>
+    <g id="ticks"></g>
+    <use class="relic" href="#finger" x="166" y="240" width="28" height="93"/>
   </svg>
 
   <div class="meter" role="progressbar" aria-valuemin="0" aria-valuemax="20" aria-valuenow="0" aria-label="Fingers recovered">
@@ -69,5 +71,6 @@
 
 <script src="relic.js"></script>
 <script src="app.js"></script>
+<script src="audio.js"></script>
 </body>
 </html>

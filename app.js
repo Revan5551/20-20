@@ -31,6 +31,16 @@ const FINALE = [
 ];
 
 const $ = s => document.querySelector(s);
+const RUIN_CHANCE = .05;                              // easter egg odds per load (never on the very first visit)
+const RUIN = (() => {                                // ?ruin=1 forces it, ?ruin=0 disables it
+  const q = location.search.match(/[?&]ruin=(\d)/); if (q) return q[1] === '1';
+  try {
+    const seen = localStorage.getItem('arg2020:visited');
+    localStorage.setItem('arg2020:visited', '1');
+    return !!seen && Math.random() < RUIN_CHANCE;    // rolled fresh on every refresh
+  } catch (e) { return false; }                      // no storage = can't know it's a repeat visit
+})();
+window.RUIN = RUIN; document.documentElement.classList.toggle('ruin', RUIN);
 const dev = /[?&]dev=1/.test(location.search);
 let devAll = false, played = false, selId = null, typer = 0;
 const FLAG = 'arg2020:finale';
@@ -39,9 +49,26 @@ const owned = () => { const s = new Set(Relic.all()); if (devAll) Relic.IDS.forE
 const NS = 'http://www.w3.org/2000/svg';
 const mk = (t, at) => { const e = document.createElementNS(NS, t); for (const k in at) e.setAttribute(k, at[k]); return e; };
 const P = (r, deg) => { const a = deg * Math.PI / 180; return [300 + r * Math.sin(a), 300 - r * Math.cos(a)]; };
-for (let i = 0; i < 90; i++) {                       // sunburst band
-  const [x1, y1] = P(276, i * 4), [x2, y2] = P(i % 5 ? 282 : 286, i * 4);
+for (let i = 0; i < 180; i++) {                      // red hatch band
+  const [x1, y1] = P(274, i * 2), [x2, y2] = P(i % 5 ? 283 : 289, i * 2);
   $('#deco').appendChild(mk('line', { x1, y1, x2, y2, class: 'sb' }));
+}
+let seed = 2020; const rnd = () => (seed = seed * 16807 % 2147483647) / 2147483647;
+for (let r = 150; r >= 14; r -= 7) {                 // hypnotic centre stripes
+  const k = ((150 - r) / 7) | 0;
+  $('#stripes').appendChild(mk('circle', { cx: 300, cy: 300, r, fill: 'none', stroke: k % 2 ? '#7a0a1a' : '#2a0409', 'stroke-width': k % 2 ? 1.2 : 3.4 }));
+}
+for (let k = 0; k < 8; k++) {                        // sigil circles
+  const [x, y] = P(128, 22.5 + 45 * k), S = $('#sat');
+  S.appendChild(mk('circle', { cx: x, cy: y, r: 16, fill: '#050001', stroke: '#8a0014', 'stroke-width': 1.5 }));
+  S.appendChild(mk('circle', { cx: x, cy: y, r: 12, fill: 'none', stroke: '#5a0a14', 'stroke-dasharray': '2 2' }));
+  S.appendChild(mk('use', { href: '#sg' + (k % 4), x, y, fill: 'none', stroke: '#d1001f', 'stroke-width': 1.3 }));
+}
+const SEG = ['M0 -6V6', 'M0 -1L-4 -6', 'M0 1L4 6', 'M-4 0H4', 'M-4 -6Q4 -6 4 0', 'M4 6Q-4 6 -4 0', 'M-4 -6L4 -2', 'M-3 6L3 6'];
+for (let i = 0; i < 72; i++) {                       // invented rune ring
+  const a = i * 5, [x, y] = P(307, a); let d = '';
+  for (let k = 0, n = 2 + (rnd() * 3 | 0); k < n; k++) d += SEG[rnd() * SEG.length | 0];
+  $('#deco').appendChild(mk('path', { d, transform: 'translate(' + x + ' ' + y + ') rotate(' + a + ')', class: 'gl' + (rnd() < .18 ? ' hot' : '') }));
 }
 Relic.IDS.forEach((id, i) => {
   const ang = i * 18 + 9, [x1, y1] = P(158, ang), [x2, y2] = P(168, ang);
@@ -95,7 +122,7 @@ function update() {
   document.querySelectorAll('.tick').forEach(t => t.classList.toggle('on', s.has(t.dataset.id)));
   $('.mandala').style.setProperty('--p', n / 20);
   $('#count').textContent = n + ' / 20';
-  $('.sub').textContent = n === 20 ? 'The vessel is whole.' : 'The vessel is incomplete.';
+  $('.sub').textContent = n === 20 ? 'The vessel is whole.' : RUIN ? 'Something got here first.' : 'The vessel is incomplete.';
   $('#bar').style.width = (n / 20 * 100) + '%';
   $('.meter').setAttribute('aria-valuenow', n);
   if (n === 20 && !played) {

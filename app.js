@@ -36,20 +36,22 @@ let devAll = false, played = false, selId = null, typer = 0;
 const FLAG = 'arg2020:finale';
 const owned = () => { const s = new Set(Relic.all()); if (devAll) Relic.IDS.forEach(i => s.add(i)); return s; };
 
-const T = $('#ticks'), NS = 'http://www.w3.org/2000/svg';
+const NS = 'http://www.w3.org/2000/svg';
+const mk = (t, at) => { const e = document.createElementNS(NS, t); for (const k in at) e.setAttribute(k, at[k]); return e; };
+const P = (r, deg) => { const a = deg * Math.PI / 180; return [300 + r * Math.sin(a), 300 - r * Math.cos(a)]; };
+for (let i = 0; i < 90; i++) {                       // sunburst band
+  const [x1, y1] = P(276, i * 4), [x2, y2] = P(i % 5 ? 282 : 286, i * 4);
+  $('#deco').appendChild(mk('line', { x1, y1, x2, y2, class: 'sb' }));
+}
 Relic.IDS.forEach((id, i) => {
-  const a = (i * 18 - 90) * Math.PI / 180, l = document.createElementNS(NS, 'line');
-  [['x1', 50], ['x2', 59]].forEach(([k, r]) => l.setAttribute(k, 180 + r * Math.cos(a)));
-  [['y1', 50], ['y2', 59]].forEach(([k, r]) => l.setAttribute(k, 281 + r * Math.sin(a)));
-  l.setAttribute('class', 'tick'); l.dataset.id = id; T.appendChild(l);
-});
-const grid = $('#grid');
-Relic.IDS.forEach(id => {
-  const b = document.createElement('button');
-  b.className = 'fg'; b.dataset.id = id;
-  b.innerHTML = '<svg viewBox="0 0 30 90"><use href="#finger"/></svg><span>' + id + '</span>';
-  b.onclick = () => select(id);
-  grid.appendChild(b);
+  const ang = i * 18 + 9, [x1, y1] = P(158, ang), [x2, y2] = P(168, ang);
+  $('#ticks').appendChild(mk('line', { x1, y1, x2, y2, class: 'tick', 'data-id': id }));
+  const g = mk('g', { class: 'fg', 'data-id': id, transform: 'rotate(' + ang + ' 300 300)', tabindex: 0, role: 'button' });
+  g.innerHTML = '<rect x="278" y="34" width="44" height="98" fill="transparent"/><use href="#finger" x="286.7" y="44" width="26.7" height="80"/>' +
+    '<text x="300" y="36" text-anchor="middle" transform="rotate(' + (-ang) + ' 300 36)">' + (i + 1) + '</text>';
+  g.onclick = () => select(id);
+  g.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(id); } };
+  $('#fingers').appendChild(g);
 });
 
 function type(el, text, ms) {                  // typewriter; returns when done
@@ -91,7 +93,7 @@ function update() {
     b.setAttribute('aria-label', 'Finger ' + b.dataset.id + (on ? ', recovered' : ', locked'));
   });
   document.querySelectorAll('.tick').forEach(t => t.classList.toggle('on', s.has(t.dataset.id)));
-  $('.shrine').style.setProperty('--p', n / 20);
+  $('.mandala').style.setProperty('--p', n / 20);
   $('#count').textContent = n + ' / 20';
   $('.sub').textContent = n === 20 ? 'The vessel is whole.' : 'The vessel is incomplete.';
   $('#bar').style.width = (n / 20 * 100) + '%';

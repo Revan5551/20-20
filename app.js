@@ -31,7 +31,7 @@ const FINALE = [
 ];
 
 const $ = s => document.querySelector(s);
-const EGGS = { ruin: .05, figure: .05 };            // odds per load; never on the very first visit
+const EGGS = { ruin: .05, figure: .8 };            // odds per load; never on the very first visit
 const MODE = (() => {                                // ?egg=ruin | figure | none  forces one
   const m = location.search.match(/[?&]egg=(\w+)/), q = location.search.match(/[?&]ruin=(\d)/);
   if (m) return ['ruin', 'figure'].includes(m[1]) ? m[1] : 'normal';
@@ -80,16 +80,32 @@ for (let k = 0; k < 8; k++) {                        // sigil circles
   for (let i = 0; i <= 24; i++) { const t = i / 24; d += (i ? 'L' : 'M') + (131 + 98 * t + (i % 2 ? 2 : -2)) + ' ' + (-54 - 26 * Math.sin(Math.PI * t) + (i % 2 ? 2.2 : -1.6)); }
   H.appendChild(mk('path', { d, class: 'ht', opacity: .8 }));
 }
-if (MODE === 'figure') {                             // THE WORLD: the shaggy beast, masks on its back, wings from its eyes
+if (MODE === 'figure') {                             // THE WORLD: a colossus standing over the shrine
+  $('.mandala').setAttribute('viewBox', '-120 -130 840 790');   // extra room so nothing is cramped
   const F = $('#figure'), add = (t, a, p = F) => p.appendChild(mk(t, a));
-  const eyes = [[143, 186], [188, 224]];
-  const limbs = [                                    // [path, width]
-    ['M100 170C170 118 250 108 320 110C400 112 470 118 524 150', 112],
-    ['M150 165C158 210 166 260 168 318', 64],
-    ['M112 195C100 245 102 300 98 340', 56], ['M98 340C96 410 102 500 86 560', 34],
-    ['M205 215C208 270 206 320 198 360', 56], ['M198 360C190 430 192 520 178 575', 34],
-    ['M398 215C396 270 398 320 405 360', 56], ['M405 360C412 430 410 520 424 575', 34],
-    ['M492 190C505 250 504 300 508 345', 56], ['M508 345C514 420 512 510 532 568', 34]];
+  const T0 = [-40, 40], T1 = [300, -70], T2 = [620, 30];          // spine curve
+  const tor = t => { const u = 1 - t, x = u * u * T0[0] + 2 * u * t * T1[0] + t * t * T2[0], y = u * u * T0[1] + 2 * u * t * T1[1] + t * t * T2[1];
+    const dx = 2 * u * (T1[0] - T0[0]) + 2 * t * (T2[0] - T1[0]), dy = 2 * u * (T1[1] - T0[1]) + 2 * t * (T2[1] - T1[1]), m = Math.hypot(dx, dy);
+    return { x, y, nx: -dy / m, ny: dx / m, rot: Math.atan2(dy, dx) * 180 / Math.PI }; };
+  const eyes = [[6, -26], [58, 4]];                              // eye sockets, buried under the wings
+  const blade = (bx, by, tx, ty, w, bow, barbs, out) => {
+    const dx = tx - bx, dy = ty - by, ln = Math.hypot(dx, dy) || 1, px = -dy / ln, py = dx / ln, mx = bx + dx / 2, my = by + dy / 2;
+    if (out) bow = Math.abs(bow) * (((mx - 300) * px + (my - 60) * py) >= 0 ? 1 : -1);
+    add('path', { d: 'M' + (bx + px * w) + ' ' + (by + py * w) + 'Q' + (mx + px * (w + bow)) + ' ' + (my + py * (w + bow)) + ' ' + tx + ' ' + ty + 'Q' + (mx + px * (bow - w)) + ' ' + (my + py * (bow - w)) + ' ' + (bx - px * w) + ' ' + (by - py * w) + 'Z', class: 'fgpath' });
+    for (let k = 1; k <= barbs; k++) { const t = k / (barbs + 1), qx = bx + dx * t + px * bow * 2 * t * (1 - t), qy = by + dy * t + py * bow * 2 * t * (1 - t), l = w * (1 - t) + 3;
+      add('path', { d: 'M' + qx + ' ' + qy + 'l' + px * l + ' ' + py * l + 'M' + qx + ' ' + qy + 'l' + -px * l + ' ' + -py * l, class: 'fh' }); }
+  };
+  const cl = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+  const limbs = [
+    ['M612 35C690 70 700 160 664 250', 38],                       // 0 tail
+    ['M25 30C-5 100 -30 190 -20 290', 58], ['M-20 290C-45 380 -10 470 -34 585', 32],        // 1-2 far-left leg
+    ['M170 40C215 130 200 240 168 335', 66], ['M168 335C140 410 175 500 150 592', 36],      // 3-4 inner-left
+    ['M430 40C385 130 400 240 432 335', 66], ['M432 335C460 410 425 500 450 592', 36],      // 5-6 inner-right
+    ['M580 30C625 110 630 200 598 292', 58], ['M598 292C575 380 635 470 648 585', 32],      // 7-8 far-right
+    ['M-40 40Q300 -70 620 30', 134],                              // 9 torso
+    ['M40 -5Q170 -95 300 -55', 90],                               // 10 shoulder hump
+    ['M30 -30C10 40 40 110 50 170', 104],                         // 11 head
+    ['M42 120C46 160 56 190 60 218', 66]];                        // 12 drooping jaw
   const ps = limbs.map(([d, w]) => add('path', { d, 'stroke-width': w + 5, stroke: '#c4001a' }));
   limbs.forEach(([d, w]) => add('path', { d, 'stroke-width': w, stroke: 'url(#fp)' }));
   const fur = (p, half, n, len, up) => {
@@ -98,37 +114,33 @@ if (MODE === 'figure') {                             // THE WORLD: the shaggy be
       const t = i / n * L, a = p.getPointAtLength(t), q = p.getPointAtLength(Math.min(L, t + 2));
       const dx = q.x - a.x, dy = q.y - a.y, m = Math.hypot(dx, dy) || 1, nx = -dy / m, ny = dx / m, s = up ? -1 : (rnd() < .5 ? -1 : 1);
       const l = len * (.5 + rnd()), x = a.x + nx * half * s, y = a.y + ny * half * s;
-      add('path', { d: 'M' + x + ' ' + y + 'q' + (nx * l * s * .5 + dx / m * 6) + ' ' + (ny * l * s * .5 + dy / m * 6) + ' ' + nx * l * s + ' ' + ny * l * s, class: 'fh2' });
+      add('path', { d: 'M' + x + ' ' + y + 'q' + (nx * l * s * .5 + dx / m * 8) + ' ' + (ny * l * s * .5 + dy / m * 8) + ' ' + nx * l * s + ' ' + ny * l * s, class: 'fh2' });
     }
   };
-  fur(ps[0], 56, 70, 40, true); fur(ps[0], 56, 70, 16); fur(ps[1], 32, 26, 20);
-  [2, 4, 6, 8].forEach(i => fur(ps[i], 28, 24, 18)); [3, 5, 7, 9].forEach(i => fur(ps[i], 17, 26, 16));
-  for (const [fx, fy] of [[86, 560], [178, 575], [424, 575], [532, 568]]) for (let k = 0; k < 16; k++) {  // ragged paws
-    const a = (k / 15 - .5) * 2.4, l = 16 + rnd() * 30;
-    add('path', { d: 'M' + (fx + (k - 7.5) * 2.6) + ' ' + (fy - 10) + 'l' + Math.sin(a) * l + ' ' + Math.cos(a) * l, class: 'fh2' });
+  fur(ps[9], 67, 120, 52, true); fur(ps[9], 67, 90, 24); fur(ps[10], 45, 50, 40, true);
+  fur(ps[11], 52, 50, 28); fur(ps[12], 33, 24, 20); fur(ps[0], 19, 26, 22);
+  [1, 3, 5, 7].forEach(i => fur(ps[i], 29, 36, 26)); [2, 4, 6, 8].forEach(i => fur(ps[i], 16, 30, 20));
+  for (const [fx, fy, claws] of [[-34, 585, 1], [150, 592, 0], [450, 592, 0], [648, 585, 0]]) for (let k = 0; k < 20; k++) {   // paws
+    const a = (k / 19 - .5) * 2.6, l = (claws ? 28 : 18) + rnd() * 32;
+    add('path', { d: 'M' + (fx + (k - 9.5) * 2.4) + ' ' + (fy - 10) + 'l' + Math.sin(a) * l + ' ' + Math.cos(a) * l, class: 'fh2' });
   }
-  for (const dx of [-8, 0, 7]) { add('path', { d: 'M' + (162 + dx) + ' 322v' + (20 + (dx + 8) * 1.6), class: 'fh2' }); add('circle', { cx: 162 + dx, cy: 346 + (dx + 8) * 1.6, r: 2.2, fill: '#c4001a' }); }
-  eyes.forEach(([ex, ey], side) => {                 // wings: fans of feathers growing out of each eye
-    const n = side ? 10 : 9;
-    for (let i = 0; i < n; i++) {
-      const a = (side ? -62 + i * 15 : 118 + i * 16) * Math.PI / 180;
-      let L = side ? 250 + 80 * Math.cos((i - 5) * .35) : 150 + 50 * Math.cos((i - 4) * .35); L += rnd() * 22;
-      let tx = Math.max(-14, Math.min(614, ex + Math.cos(a) * L)), ty = Math.max(-14, Math.min(610, ey - Math.sin(a) * L));
-      const dx = tx - ex, dy = ty - ey, ln = Math.hypot(dx, dy), px = -dy / ln, py = dx / ln, bow = ln * .16 * (side ? 1 : -1), w = 13, mx = ex + dx / 2, my = ey + dy / 2;
-      add('path', { d: 'M' + (ex + px * w) + ' ' + (ey + py * w) + 'Q' + (mx + px * (w + bow)) + ' ' + (my + py * (w + bow)) + ' ' + tx + ' ' + ty + 'Q' + (mx + px * (bow - w)) + ' ' + (my + py * (bow - w)) + ' ' + (ex - px * w) + ' ' + (ey - py * w) + 'Z', class: 'fgpath' });
-      for (let k = 1; k < 7; k++) { const t = k / 7, qx = ex + dx * t + px * bow * 2 * t * (1 - t), qy = ey + dy * t + py * bow * 2 * t * (1 - t); add('path', { d: 'M' + qx + ' ' + qy + 'l' + px * 12 * (1 - t) + ' ' + py * 12 * (1 - t) + 'M' + qx + ' ' + qy + 'l' + -px * 12 * (1 - t) + ' ' + -py * 12 * (1 - t), class: 'fh' }); }
-    }
-  });
-  const yc = x => 125 + Math.pow((x - 300) / 220, 2) * 25;      // 20 masks along the back
-  let n = 0;
-  [[-30, 7, 150, 52], [0, 7, 126, 58], [30, 6, 165, 54]].forEach(([dy, c, x0, st]) => { for (let k = 0; k < c; k++) {
-    const x = x0 + k * st, g = add('g', { class: 'fm', 'data-id': Relic.IDS[n++], transform: 'translate(' + x + ' ' + (yc(x) + dy) + ') rotate(' + ((x - 300) * .06 + (n * 5 % 9 - 4)) + ')' });
-    g.innerHTML = '<ellipse rx="16" ry="9.5"/><ellipse rx="9" ry="4.6"/><path d="M-6 0H6"/>';
+  for (const dx of [-10, 0, 9]) { add('path', { d: 'M' + (60 + dx) + ' 220v' + (18 + (dx + 10) * 1.5), class: 'fh2' }); add('circle', { cx: 60 + dx, cy: 242 + (dx + 10) * 1.5, r: 2.4, fill: '#c4001a' }); }
+  { const [ex, ey] = eyes[0];                                     // left wing: big feathers sweeping out, up and down
+    for (let i = 0; i < 10; i++) { const al = (104 + i * 15.5) * Math.PI / 180, L = 180 + 110 * Math.sin(Math.PI * i / 9) + rnd() * 20;
+      blade(ex, ey, cl(ex + Math.cos(al) * L, -114, 714), cl(ey + Math.sin(al) * L, -124, 650), 21, L * .13, 9, true); } }
+  { const [ex, ey] = eyes[1];                                     // right wing: rises over the back and falls down the far side
+    for (let i = 0; i < 12; i++) { const u = i / 11, tx = 40 + u * 650, ty = -126 + 150 * Math.pow(u, 1.5), L = Math.hypot(tx - ex, ty - ey);
+      blade(ex, ey, tx, ty, 21, L * .12, 10, true); } }
+  for (const [ex, ey] of eyes) {                                  // feather bursts hide the eyes: wings grow out of them
+    for (let i = 0; i < 18; i++) { const al = i / 18 * Math.PI * 2, L = 40 + rnd() * 20;
+      blade(ex + Math.cos(al) * 8, ey + Math.sin(al) * 8, ex + Math.cos(al) * L, ey + Math.sin(al) * L, 9, L * .2, 3); }
+    add('circle', { cx: ex, cy: ey, r: 14, fill: 'url(#fp)', stroke: '#c4001a', 'stroke-width': 1.4 });
+  }
+  let n = 0;                                                      // 20 masks across the back, three rows
+  [[-36, 7, .22, .11], [0, 7, .275, .1], [36, 6, .33, .095]].forEach(([off, c, t0, st]) => { for (let k = 0; k < c; k++) {
+    const p = tor(t0 + k * st), g = add('g', { class: 'fm', 'data-id': Relic.IDS[n++], transform: 'translate(' + (p.x + p.nx * off) + ' ' + (p.y + p.ny * off) + ') rotate(' + (p.rot + (n * 7 % 9 - 4)) + ')' });
+    g.innerHTML = '<ellipse rx="17" ry="10"/><ellipse rx="9.5" ry="4.8"/><path d="M-6.5 0H6.5"/>';
   } });
-  eyes.forEach(([ex, ey]) => {
-    const g = add('g', { class: 'eye', transform: 'translate(' + ex + ' ' + ey + ') rotate(-12)' });
-    g.innerHTML = '<ellipse rx="27" ry="17" fill="#1a0004" stroke="#ff2a3d" stroke-width="3"/><ellipse rx="13" ry="10" fill="#c4001a"/><ellipse rx="2.6" ry="9.5" fill="#000"/>';
-  });
 }
 const SEG = ['M0 -6V6', 'M0 -1L-4 -6', 'M0 1L4 6', 'M-4 0H4', 'M-4 -6Q4 -6 4 0', 'M4 6Q-4 6 -4 0', 'M-4 -6L4 -2', 'M-3 6L3 6'];
 for (let i = 0; i < 72; i++) {                       // invented rune ring

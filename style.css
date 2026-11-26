@@ -110,3 +110,5 @@ h1{font-size:clamp(3.2rem,16vw,5.5rem);animation:flick 7s infinite}
 .tears{display:none}
 .figure #jaw{transform:translateY(26px);transition:none;animation:none}
 .figure .dr,.figure #figure,.figure .ey,.figure .mark,.figure .em{animation:none}
+
+.figure #deco,.figure #stripes,.figure #sat{opacity:.4}

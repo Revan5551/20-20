@@ -2,7 +2,7 @@
 
 ## Copyright & Credits
 
-Survey is a non-commercial, fan-made project created for entertainment purposes.
+20-20 is a non-commercial, fan-made project created for entertainment purposes.
 
 All characters, names, music, and other copyrighted material belonging to their respective creators and rights holders remain their property.
 

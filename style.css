@@ -124,17 +124,91 @@ h1{font-size:clamp(3.2rem,16vw,5.5rem);animation:flick 7s infinite}
 .figure #figure{filter:drop-shadow(0 0 8px rgba(190,0,25,.4))}
 
 
-/* ARRIVING SOON / OPERATOR GATE */
-#gate{position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;background:#030000;color:#c4001a;text-align:center;font-family:inherit;opacity:1;transition:opacity .65s ease}
-#gate[hidden]{display:none!important}
-.gate-content{width:min(90%,500px);padding:30px}
-#gate-logo{font-size:clamp(4rem,15vw,8rem);letter-spacing:.15em;color:#a00018;text-shadow:0 0 20px #8a0010;cursor:default}
-.gate-title{font-size:1.2rem;letter-spacing:.45em;margin-top:35px;animation:gateFlicker 4s infinite}
-.gate-subtitle{color:#6a3038;letter-spacing:.2em;font-size:.75rem;margin-top:18px}
-#gate-status{margin-top:55px;font-size:.7rem;letter-spacing:.3em;color:#9b2638}
-#gate-terminal{margin-top:25px}
-#gate-terminal input{display:block;width:100%;box-sizing:border-box;padding:13px;background:#080000;border:1px solid #6a0010;color:#ff3048;outline:none;text-align:center;letter-spacing:.1em}
-#gate-terminal button{margin-top:12px;padding:12px 25px;background:#210008;border:1px solid #a00018;color:#ff3048;cursor:pointer;letter-spacing:.2em}
-#gate-error{color:#ff3048;font-size:.75rem;min-height:1em}
-#gate.gate-exit{opacity:0;pointer-events:none}
-@keyframes gateFlicker{0%,96%,100%{opacity:1}97%{opacity:.35}98%{opacity:.8}}
+#gate {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 2147483647 !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #030000 !important;
+    color: #c4001a;
+    text-align: center;
+    font-family: inherit;
+}
+
+#gate[hidden] {
+    display: none !important;
+}
+
+#gate .gate-content {
+    width: min(90%, 500px);
+    padding: 30px;
+}
+
+#gate-logo {
+    font-size: clamp(4rem, 15vw, 8rem);
+    letter-spacing: .15em;
+    color: #a00018;
+    text-shadow: 0 0 20px #8a0010;
+    cursor: pointer;
+}
+
+.gate-title {
+    font-size: 1.4rem;
+    letter-spacing: .5em;
+    margin-top: 35px;
+}
+
+.gate-subtitle {
+    color: #6a3038;
+    letter-spacing: .2em;
+    font-size: .75rem;
+    margin-top: 18px;
+}
+
+#gate-status {
+    margin-top: 55px;
+    font-size: .7rem;
+    letter-spacing: .3em;
+    color: #741020;
+}
+
+#gate-terminal {
+    margin-top: 25px;
+}
+
+#gate-terminal input {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px;
+    background: #080000;
+    border: 1px solid #6a0010;
+    color: #ff3048;
+    text-align: center;
+}
+
+#gate-terminal button {
+    margin-top: 12px;
+    padding: 12px 25px;
+    background: #210008;
+    border: 1px solid #a00018;
+    color: #ff3048;
+    cursor: pointer;
+}
+
+#gate-error {
+    color: #ff3048;
+    font-size: .75rem;
+}
+
+#gate.gate-exit {
+    opacity: 0;
+    transition: opacity .65s ease;
+    pointer-events: none;
+}

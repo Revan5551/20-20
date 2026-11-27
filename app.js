@@ -137,11 +137,11 @@ if (MODE === 'figure') {                             // THE WORLD: a colossus st
     g.innerHTML = '<ellipse rx="8" ry="4.4"/><ellipse class="tp" rx="1.6" ry="3.6"/>';
   });
   const reach = (ex, ey, c, s) => Math.min(c < 0 ? (ex + 164) / -c : c > 0 ? (714 - ex) / c : 1e9, s < 0 ? (ey + 124) / -s : s > 0 ? (650 - ey) / s : 1e9);
-  { const [ex, ey] = eyes[0];                                     // left wing: same feathers, mirrored to extend outward to the left
-    for (let i = 0; i < 11; i++) { const deg = -30 + i * 6, al = (180 - deg) * Math.PI / 180, c = Math.cos(al), s = Math.sin(al), L = Math.min(reach(ex, ey, c, s), 330 + 90 * Math.cos(deg * Math.PI / 60) + rnd() * 24);
+  { const [ex, ey] = eyes[0];                                     // left wing: grows out of the left socket and fans to the right, tips curling like a bracket
+    for (let i = 0; i < 11; i++) { const deg = -30 + i * 6, al = deg * Math.PI / 180, c = Math.cos(al), s = Math.sin(al), L = Math.min(reach(ex, ey, c, s), 330 + 90 * Math.cos(deg * Math.PI / 60) + rnd() * 24);
       blade(ex, ey, ex + c * L, ey + s * L, 21, -L * .12 * Math.sign(deg), 9, false); } }
-  { const [ex, ey] = eyes[1];                                     // right wing: same feathers, mirrored to extend outward to the right
-    for (let i = 0; i < 11; i++) { const al = (330 - i * 10.5) * Math.PI / 180, c = Math.cos(al), s = Math.sin(al), L = Math.min(reach(ex, ey, c, s), 300 + rnd() * 40);
+  { const [ex, ey] = eyes[1];                                     // right wing: grows out of the right socket and rises over the shoulders
+    for (let i = 0; i < 11; i++) { const al = (-150 + i * 10.5) * Math.PI / 180, c = Math.cos(al), s = Math.sin(al), L = Math.min(reach(ex, ey, c, s), 300 + rnd() * 40);
       blade(ex, ey, ex + c * L, ey + s * L, 21, L * .12, 10, true); } }
   for (const [ex, ey] of eyes) {                                  // overlapping feather roots: wings, not eyes
     for (let i = 0; i < 26; i++) { const al = i / 26 * Math.PI * 2, L = 46 + rnd() * 26; blade(ex, ey, ex + Math.cos(al) * L, ey + Math.sin(al) * L, 11, L * .2, 3); }

@@ -137,12 +137,17 @@ if (MODE === 'figure') {                             // THE WORLD: a colossus st
     g.innerHTML = '<ellipse rx="8" ry="4.4"/><ellipse class="tp" rx="1.6" ry="3.6"/>';
   });
   const reach = (ex, ey, c, s) => Math.min(c < 0 ? (ex + 164) / -c : c > 0 ? (714 - ex) / c : 1e9, s < 0 ? (ey + 124) / -s : s > 0 ? (650 - ey) / s : 1e9);
-  { const [ex, ey] = eyes[0];                                     // left wing: grows out of the left socket and fans to the right, tips curling like a bracket
-    for (let i = 0; i < 11; i++) { const deg = -30 + i * 6, al = deg * Math.PI / 180, c = Math.cos(al), s = Math.sin(al), L = Math.min(reach(ex, ey, c, s), 330 + 90 * Math.cos(deg * Math.PI / 60) + rnd() * 24);
-      blade(ex, ey, ex + c * L, ey + s * L, 21, -L * .12 * Math.sign(deg), 9, false); } }
-  { const [ex, ey] = eyes[1];                                     // right wing: grows out of the right socket and rises over the shoulders
-    for (let i = 0; i < 11; i++) { const al = (-150 + i * 10.5) * Math.PI / 180, c = Math.cos(al), s = Math.sin(al), L = Math.min(reach(ex, ey, c, s), 300 + rnd() * 40);
-      blade(ex, ey, ex + c * L, ey + s * L, 21, L * .12, 10, true); } }
+  // Paired wings: each one opens away from the face, sweeping diagonally outward and upward.
+  // The angles mirror around the vertical axis so the silhouette reads as a bird spreading both wings.
+  for (let side = 0; side < 2; side++) {
+    const [ex, ey] = eyes[side];
+    for (let i = 0; i < 11; i++) {
+      const deg = side === 0 ? -172 + i * 7.2 : -8 - i * 7.2;
+      const al = deg * Math.PI / 180, c = Math.cos(al), s = Math.sin(al);
+      const L = Math.min(reach(ex, ey, c, s), 305 + 55 * Math.cos((i / 10 - .5) * Math.PI) + rnd() * 18);
+      blade(ex, ey, ex + c * L, ey + s * L, 21, side === 0 ? -L * .10 : L * .10, 9, false);
+    }
+  }
   for (const [ex, ey] of eyes) {                                  // overlapping feather roots: wings, not eyes
     for (let i = 0; i < 26; i++) { const al = i / 26 * Math.PI * 2, L = 46 + rnd() * 26; blade(ex, ey, ex + Math.cos(al) * L, ey + Math.sin(al) * L, 11, L * .2, 3); }
     for (let i = 0; i < 14; i++) { const al = (i / 14 + .03) * Math.PI * 2, L = 28 + rnd() * 12; blade(ex, ey, ex + Math.cos(al) * L, ey + Math.sin(al) * L, 8, L * .2, 1); }

@@ -11,6 +11,20 @@
 <div class="crt" aria-hidden="true"></div>
 <div class="flash" aria-hidden="true"></div>
 
+<div id="gate" aria-label="Access restricted">
+  <div class="gate-content">
+    <h1 id="gate-logo">20:20</h1>
+    <p class="gate-title">ARRIVING SOON</p>
+    <p class="gate-subtitle">THIS ROOM IS NOT YET OPEN.</p>
+    <p id="gate-status">AWAITING AUTHORIZATION</p>
+    <form id="gate-terminal" hidden>
+      <input id="gate-key" type="password" placeholder="ENTER PASSPHRASE" autocomplete="off" spellcheck="false">
+      <button type="submit">AUTHORIZE</button>
+    </form>
+    <p id="gate-error" role="status" aria-live="polite"></p>
+  </div>
+</div>
+
 <button id="snd" class="snd" aria-pressed="false">sound off</button>
 <main>
   <h1 class="glitch" data-t="20:20">20:20</h1>
@@ -124,5 +138,6 @@
 <script src="relic.js"></script>
 <script src="app.js"></script>
 <script src="audio.js"></script>
+<script src="gate.js"></script>
 </body>
 </html>

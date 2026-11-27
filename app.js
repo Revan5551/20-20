@@ -31,7 +31,7 @@ const FINALE = [
 ];
 
 const $ = s => document.querySelector(s);
-const EGGS = { ruin: .05, figure: .8 };            // odds per load; never on the very first visit
+const EGGS = { ruin: .01, figure: .02 };            // odds per load; never on the very first visit
 const MODE = (() => {                                // ?egg=ruin | figure | none  forces one
   const m = location.search.match(/[?&]egg=(\w+)/), q = location.search.match(/[?&]ruin=(\d)/);
   if (m) return ['ruin', 'figure'].includes(m[1]) ? m[1] : 'normal';

@@ -137,46 +137,17 @@ if (MODE === 'figure') {                             // THE WORLD: a colossus st
     g.innerHTML = '<ellipse rx="8" ry="4.4"/><ellipse class="tp" rx="1.6" ry="3.6"/>';
   });
   const reach = (ex, ey, c, s) => Math.min(c < 0 ? (ex + 164) / -c : c > 0 ? (714 - ex) / c : 1e9, s < 0 ? (ey + 124) / -s : s > 0 ? (650 - ey) / s : 1e9);
-  const drawWing = (ex, ey, side) => {
-    // Primary feathers fan OUTWARD from the face, not upward across it.
-    // side=-1 is the left wing; side=1 is the right wing.
-    const count = 17;
-    for (let i = 0; i < count; i++) {
-      const t = i / (count - 1);
-      const angle = (-29 + 58 * t) * Math.PI / 180;
-      const c = Math.cos(angle) * side;
-      const s = Math.sin(angle);
-      const L = 185 + 78 * Math.sin(Math.PI * t) + rnd() * 14;
-      const bx = ex + side * (i * 2.2);
-      const by = ey - 17 + i * 2.1;
-      const tx = ex + c * L;
-      const ty = ey + s * L - 8;
-      blade(bx, by, tx, ty, 12 + 3 * Math.sin(Math.PI * t), side * -L * .075, 7, false);
-    }
-
-    // Layer of shorter overlapping feathers gives each wing a continuous body.
-    for (let i = 0; i < 13; i++) {
-      const t = i / 12;
-      const bx = ex + side * (8 + 34 * t);
-      const by = ey + 7 + 25 * t;
-      const L = 112 + 45 * Math.sin(Math.PI * t);
-      const tx = bx + side * L;
-      const ty = by - 24 + 36 * t;
-      blade(bx, by, tx, ty, 9, side * -L * .06, 4, false);
-    }
-
-    // Fine feather lines follow the same outward sweep.
-    for (let i = 0; i < 22; i++) {
-      const t = i / 21;
-      const bx = ex + side * (12 + 34 * t);
-      const by = ey - 8 + 30 * t;
-      const tx = ex + side * (95 + 145 * t);
-      const ty = ey - 30 + 58 * t;
-      add('path', { d: 'M' + bx + ' ' + by + 'Q' + (bx + tx) / 2 + ' ' + (by + ty) / 2 + ' ' + tx + ' ' + ty, class: 'fh' });
-    }
-  };
-  drawWing(eyes[0][0], eyes[0][1], -1);
-  drawWing(eyes[1][0], eyes[1][1], 1);
+  { const [ex, ey] = eyes[0];                                     // left wing: same feathers, mirrored to extend outward to the left
+    for (let i = 0; i < 11; i++) { const deg = -30 + i * 6, al = (180 - deg) * Math.PI / 180, c = Math.cos(al), s = Math.sin(al), L = Math.min(reach(ex, ey, c, s), 330 + 90 * Math.cos(deg * Math.PI / 60) + rnd() * 24);
+      blade(ex, ey, ex + c * L, ey + s * L, 21, -L * .12 * Math.sign(deg), 9, false); } }
+  { const [ex, ey] = eyes[1];                                     // right wing: same feathers, mirrored to extend outward to the right
+    for (let i = 0; i < 11; i++) { const al = (330 - i * 10.5) * Math.PI / 180, c = Math.cos(al), s = Math.sin(al), L = Math.min(reach(ex, ey, c, s), 300 + rnd() * 40);
+      blade(ex, ey, ex + c * L, ey + s * L, 21, L * .12, 10, true); } }
+  for (const [ex, ey] of eyes) {                                  // overlapping feather roots: wings, not eyes
+    for (let i = 0; i < 26; i++) { const al = i / 26 * Math.PI * 2, L = 46 + rnd() * 26; blade(ex, ey, ex + Math.cos(al) * L, ey + Math.sin(al) * L, 11, L * .2, 3); }
+    for (let i = 0; i < 14; i++) { const al = (i / 14 + .03) * Math.PI * 2, L = 28 + rnd() * 12; blade(ex, ey, ex + Math.cos(al) * L, ey + Math.sin(al) * L, 8, L * .2, 1); }
+    for (let i = 0; i < 12; i++) { const al = (i / 12 + .05) * Math.PI * 2, L = 15 + rnd() * 6; blade(ex, ey, ex + Math.cos(al) * L, ey + Math.sin(al) * L, 6, L * .2, 0); }
+  }
   let n = 0;                                                      // 20 masks across the back, three rows
   [[-36, 7, .22, .11], [0, 7, .275, .1], [36, 6, .33, .095]].forEach(([off, c, t0, st]) => { for (let k = 0; k < c; k++) {
     const p = tor(t0 + k * st), g = add('g', { class: 'fm', 'data-id': Relic.IDS[n++], transform: 'translate(' + (p.x + p.nx * off) + ' ' + (p.y + p.ny * off) + ') rotate(' + (p.rot + (n * 7 % 9 - 4)) + ')' });

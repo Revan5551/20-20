@@ -112,3 +112,13 @@ h1{font-size:clamp(3.2rem,16vw,5.5rem);animation:flick 7s infinite}
 .figure .dr,.figure #figure,.figure .ey,.figure .mark,.figure .em{animation:none}
 
 .figure #deco,.figure #stripes,.figure #sat{opacity:.4}
+
+.tt{fill:#c4001a;stroke:#c4001a;stroke-width:.8}
+.te{filter:drop-shadow(0 0 3px #ff2a3d)}
+.te ellipse{fill:#1a0004;stroke:#e0192f;stroke-width:1.4}
+.te .tp{fill:#ff2a3d;stroke:none}
+.pu{display:none}
+.fm.on .pu{display:inline;fill:#000;stroke:none}
+.fm.on ellipse:nth-of-type(2){fill:#c4001a}
+.fm.on path{opacity:0}
+.figure #figure{filter:drop-shadow(0 0 8px rgba(190,0,25,.4))}

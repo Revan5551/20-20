@@ -81,13 +81,13 @@ for (let k = 0; k < 8; k++) {                        // sigil circles
   H.appendChild(mk('path', { d, class: 'ht', opacity: .8 }));
 }
 if (MODE === 'figure') {                             // THE WORLD: a colossus standing over the shrine
-  $('.mandala').setAttribute('viewBox', '-120 -130 840 790');   // extra room so nothing is cramped
+  $('.mandala').setAttribute('viewBox', '-170 -130 890 790');   // extra room so nothing is cramped
   const F = $('#figure'), add = (t, a, p = F) => p.appendChild(mk(t, a));
   const T0 = [-40, 40], T1 = [300, -70], T2 = [620, 30];          // spine curve
   const tor = t => { const u = 1 - t, x = u * u * T0[0] + 2 * u * t * T1[0] + t * t * T2[0], y = u * u * T0[1] + 2 * u * t * T1[1] + t * t * T2[1];
     const dx = 2 * u * (T1[0] - T0[0]) + 2 * t * (T2[0] - T1[0]), dy = 2 * u * (T1[1] - T0[1]) + 2 * t * (T2[1] - T1[1]), m = Math.hypot(dx, dy);
     return { x, y, nx: -dy / m, ny: dx / m, rot: Math.atan2(dy, dx) * 180 / Math.PI }; };
-  const eyes = [[6, -26], [58, 4]];                              // eye sockets, buried under the wings
+  const eyes = [[34, 165], [114, 165]];                          // eye sockets on the face, buried under the wings
   const blade = (bx, by, tx, ty, w, bow, barbs, out) => {
     const dx = tx - bx, dy = ty - by, ln = Math.hypot(dx, dy) || 1, px = -dy / ln, py = dx / ln, mx = bx + dx / 2, my = by + dy / 2;
     if (out) bow = Math.abs(bow) * (((mx - 300) * px + (my - 60) * py) >= 0 ? 1 : -1);
@@ -105,7 +105,8 @@ if (MODE === 'figure') {                             // THE WORLD: a colossus st
     ['M-40 40Q300 -70 620 30', 134],                              // 9 torso
     ['M40 -5Q170 -95 300 -55', 90],                               // 10 shoulder hump
     ['M30 -30C10 40 40 110 50 170', 104],                         // 11 head
-    ['M42 120C46 160 56 190 60 218', 66]];                        // 12 drooping jaw
+    ['M42 120C46 160 56 190 60 218', 66],                         // 12 drooping jaw
+    ['M34 160L112 160', 62]];                                     // 13 broad face (carries the wing-eyes)
   const ps = limbs.map(([d, w]) => add('path', { d, 'stroke-width': w + 5, stroke: '#c4001a' }));
   limbs.forEach(([d, w]) => add('path', { d, 'stroke-width': w, stroke: 'url(#fp)' }));
   const fur = (p, half, n, len, up) => {
@@ -118,28 +119,39 @@ if (MODE === 'figure') {                             // THE WORLD: a colossus st
     }
   };
   fur(ps[9], 67, 120, 52, true); fur(ps[9], 67, 90, 24); fur(ps[10], 45, 50, 40, true);
-  fur(ps[11], 52, 50, 28); fur(ps[12], 33, 24, 20); fur(ps[0], 19, 26, 22);
+  fur(ps[11], 52, 50, 28); fur(ps[12], 33, 24, 20); fur(ps[13], 31, 24, 22); fur(ps[0], 19, 26, 22);
   [1, 3, 5, 7].forEach(i => fur(ps[i], 29, 36, 26)); [2, 4, 6, 8].forEach(i => fur(ps[i], 16, 30, 20));
   for (const [fx, fy, claws] of [[-34, 585, 1], [150, 592, 0], [450, 592, 0], [648, 585, 0]]) for (let k = 0; k < 20; k++) {   // paws
     const a = (k / 19 - .5) * 2.6, l = (claws ? 28 : 18) + rnd() * 32;
     add('path', { d: 'M' + (fx + (k - 9.5) * 2.4) + ' ' + (fy - 10) + 'l' + Math.sin(a) * l + ' ' + Math.cos(a) * l, class: 'fh2' });
   }
   for (const dx of [-10, 0, 9]) { add('path', { d: 'M' + (60 + dx) + ' 220v' + (18 + (dx + 10) * 1.5), class: 'fh2' }); add('circle', { cx: 60 + dx, cy: 242 + (dx + 10) * 1.5, r: 2.4, fill: '#c4001a' }); }
-  { const [ex, ey] = eyes[0];                                     // left wing: big feathers sweeping out, up and down
-    for (let i = 0; i < 10; i++) { const al = (104 + i * 15.5) * Math.PI / 180, L = 180 + 110 * Math.sin(Math.PI * i / 9) + rnd() * 20;
-      blade(ex, ey, cl(ex + Math.cos(al) * L, -114, 714), cl(ey + Math.sin(al) * L, -124, 650), 21, L * .13, 9, true); } }
-  { const [ex, ey] = eyes[1];                                     // right wing: rises over the back and falls down the far side
-    for (let i = 0; i < 12; i++) { const u = i / 11, tx = 40 + u * 650, ty = -126 + 150 * Math.pow(u, 1.5), L = Math.hypot(tx - ex, ty - ey);
-      blade(ex, ey, tx, ty, 21, L * .12, 10, true); } }
-  for (const [ex, ey] of eyes) {                                  // feather bursts hide the eyes: wings grow out of them
-    for (let i = 0; i < 18; i++) { const al = i / 18 * Math.PI * 2, L = 40 + rnd() * 20;
-      blade(ex + Math.cos(al) * 8, ey + Math.sin(al) * 8, ex + Math.cos(al) * L, ey + Math.sin(al) * L, 9, L * .2, 3); }
-    add('circle', { cx: ex, cy: ey, r: 14, fill: 'url(#fp)', stroke: '#c4001a', 'stroke-width': 1.4 });
+  { const p = ps[9], L = p.getTotalLength();                      // long hair hanging off the belly
+    for (let i = 0; i < 64; i++) { const s = (.06 + .88 * i / 63) * L, a = p.getPointAtLength(s), q = p.getPointAtLength(Math.min(L, s + 2));
+      const dx = q.x - a.x, dy = q.y - a.y, m = Math.hypot(dx, dy) || 1, l = 16 + rnd() * 56;
+      add('path', { d: 'M' + (a.x - dy / m * 65) + ' ' + (a.y + dx / m * 65) + 'q' + (rnd() * 8 - 4) + ' ' + l * .5 + ' ' + (rnd() * 10 - 5) + ' ' + l, class: 'fh2' }); } }
+  add('ellipse', { cx: 60, cy: 212, rx: 26, ry: 10, fill: '#000', stroke: '#c4001a', 'stroke-width': 1.4 });   // gaping mouth full of teeth
+  { let td = ''; for (let k = 0; k < 10; k++) { const x = 37 + k * 5.1; td += 'M' + x + ' 205l2.3 7 2.3-7M' + x + ' 219l2.3-7 2.3 7'; } add('path', { d: td, class: 'tt' }); }
+  [[1, .4], [1, .75], [3, .35], [3, .7], [5, .35], [5, .7], [7, .4], [7, .75], [2, .5], [4, .5], [6, .5], [8, .5], [0, .6], [12, .5]].forEach(([i, t], k) => {   // small watching eyes in the fur
+    const p = ps[i], pt = p.getPointAtLength(p.getTotalLength() * t), g = add('g', { class: 'te', transform: 'translate(' + pt.x + ' ' + pt.y + ') rotate(' + (k * 29 % 50 - 25) + ')' });
+    g.innerHTML = '<ellipse rx="8" ry="4.4"/><ellipse class="tp" rx="1.6" ry="3.6"/>';
+  });
+  const reach = (ex, ey, c, s) => Math.min(c < 0 ? (ex + 164) / -c : c > 0 ? (714 - ex) / c : 1e9, s < 0 ? (ey + 124) / -s : s > 0 ? (650 - ey) / s : 1e9);
+  { const [ex, ey] = eyes[0];                                     // left wing: grows out of the left socket, sweeps out, up and down
+    for (let i = 0; i < 11; i++) { const al = (108 + i * 14) * Math.PI / 180, c = Math.cos(al), s = Math.sin(al), L = Math.min(reach(ex, ey, c, s), 210 + 130 * Math.sin(Math.PI * i / 10) + rnd() * 24);
+      blade(ex, ey, ex + c * L, ey + s * L, 21, L * .13, 9, true); } }
+  { const [ex, ey] = eyes[1];                                     // right wing: grows out of the right socket and rises over the shoulders
+    for (let i = 0; i < 11; i++) { const al = (-150 + i * 10.5) * Math.PI / 180, c = Math.cos(al), s = Math.sin(al), L = Math.min(reach(ex, ey, c, s), 300 + rnd() * 40);
+      blade(ex, ey, ex + c * L, ey + s * L, 21, L * .12, 10, true); } }
+  for (const [ex, ey] of eyes) {                                  // overlapping feather roots: wings, not eyes
+    for (let i = 0; i < 26; i++) { const al = i / 26 * Math.PI * 2, L = 46 + rnd() * 26; blade(ex, ey, ex + Math.cos(al) * L, ey + Math.sin(al) * L, 11, L * .2, 3); }
+    for (let i = 0; i < 14; i++) { const al = (i / 14 + .03) * Math.PI * 2, L = 28 + rnd() * 12; blade(ex, ey, ex + Math.cos(al) * L, ey + Math.sin(al) * L, 8, L * .2, 1); }
+    for (let i = 0; i < 12; i++) { const al = (i / 12 + .05) * Math.PI * 2, L = 15 + rnd() * 6; blade(ex, ey, ex + Math.cos(al) * L, ey + Math.sin(al) * L, 6, L * .2, 0); }
   }
   let n = 0;                                                      // 20 masks across the back, three rows
   [[-36, 7, .22, .11], [0, 7, .275, .1], [36, 6, .33, .095]].forEach(([off, c, t0, st]) => { for (let k = 0; k < c; k++) {
     const p = tor(t0 + k * st), g = add('g', { class: 'fm', 'data-id': Relic.IDS[n++], transform: 'translate(' + (p.x + p.nx * off) + ' ' + (p.y + p.ny * off) + ') rotate(' + (p.rot + (n * 7 % 9 - 4)) + ')' });
-    g.innerHTML = '<ellipse rx="17" ry="10"/><ellipse rx="9.5" ry="4.8"/><path d="M-6.5 0H6.5"/>';
+    g.innerHTML = '<ellipse rx="17" ry="10"/><ellipse rx="9.5" ry="4.8"/><path d="M-6.5 0H6.5"/><ellipse class="pu" rx="1.8" ry="4.4"/>';
   } });
 }
 const SEG = ['M0 -6V6', 'M0 -1L-4 -6', 'M0 1L4 6', 'M-4 0H4', 'M-4 -6Q4 -6 4 0', 'M4 6Q-4 6 -4 0', 'M-4 -6L4 -2', 'M-3 6L3 6'];

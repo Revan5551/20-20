@@ -35,6 +35,19 @@
   } catch (e) {}
 
   // Hold Shift and click the 20:20 title three times.
+    // Open the operator terminal.
+  function openTerminal() {
+    if (gate.hidden || !terminal.hidden) return;
+
+    terminal.hidden = false;
+    status.textContent = 'OPERATOR CHANNEL OPEN';
+    error.textContent = '';
+    input.value = '';
+
+    window.setTimeout(() => input.focus(), 30);
+  }
+
+  // Desktop: hold Shift and click the 20:20 title three times.
   logo.addEventListener('click', function (event) {
     if (!event.shiftKey || gate.hidden) return;
 
@@ -48,16 +61,47 @@
 
     if (clicks >= 3) {
       clicks = 0;
-
-      terminal.hidden = false;
-      status.textContent = 'OPERATOR CHANNEL OPEN';
-      error.textContent = '';
-      input.value = '';
-
-      window.setTimeout(() => input.focus(), 30);
+      openTerminal();
     }
   });
 
+  // Mobile: hold the subtitle for four seconds.
+  const subtitle = gate.querySelector('.gate-subtitle');
+  let holdTimer = null;
+
+  if (subtitle) {
+    subtitle.style.touchAction = 'none';
+
+    subtitle.addEventListener('pointerdown', function (event) {
+      if (event.pointerType !== 'touch' || gate.hidden || !terminal.hidden) return;
+
+      holdTimer = window.setTimeout(() => {
+        holdTimer = null;
+
+        subtitle.style.textShadow =
+          '0 0 5px #ff3048, 0 0 14px #c4001a';
+
+        window.setTimeout(() => {
+          subtitle.style.textShadow = '';
+        }, 450);
+
+        openTerminal();
+      }, 4000);
+    });
+
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(eventName => {
+      subtitle.addEventListener(eventName, () => {
+        if (holdTimer !== null) {
+          window.clearTimeout(holdTimer);
+          holdTimer = null;
+        }
+      });
+    });
+
+    subtitle.addEventListener('contextmenu', event => {
+      event.preventDefault();
+    });
+  }
   terminal.addEventListener('submit', function (event) {
     event.preventDefault();
 
